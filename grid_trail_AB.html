@@ -7,7 +7,7 @@
     <script src="jspsych-6.0.4/plugins/jspsych-survey-text.js"></script>
     <script src="jspsych-6.0.4/plugins/jspsych-instructions.js"></script>
     <script src="jspsych-6.0.4/plugins/jspsych-fullscreen.js"></script>
-    <script src="jspsych-6.0.4/plugins/jspsych-spatial-span.js"></script>
+    <script src="jspsych-6.0.4/plugins/jspsych-trailsA.js"></script>
     <script src="jspsych-6.0.4/plugins/jspsych-spatial-span-recall.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -117,7 +117,7 @@
   }
 
   var test_stimuli = {
-  type: 'spatial-span',
+  type: 'trailsA',
   grid_size: function(){
     return grid
   },
@@ -161,7 +161,7 @@ var cog_load = {
 }
 
 var test_stimuli = {
-  type: 'spatial-span',
+  type: 'trailsA',
   grid_size: function(){
     return grid
   },
@@ -173,7 +173,7 @@ var test_stimuli = {
 }
 
 var end_test_stimuli = {
-  type: 'spatial-span',
+  type: 'trailsA',
   grid_size: function(){
     return grid
   },
@@ -275,7 +275,7 @@ var feedback = {
    on_finish: function(data) {
         var data = jsPsych.data.get().filter([{trial_type:'spatial-span-recall'}, {trial_type:'symmetry-judgement-task'}]);
         if (file_name == null){
-          file_name = "WM_symmetry_span_"+partN+"_"+IDsub.toString()+".csv"}
+          file_name = "Grid_trails_AB_"+partN+"_"+IDsub.toString()+".csv"}
         else{
           file_name += ".csv"
         }
