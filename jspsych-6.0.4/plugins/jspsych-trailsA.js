@@ -34,8 +34,13 @@ jsPsych.plugins["trailsA"] = (function() {
         },
         correct_order: {
           type:jsPsych.plugins.parameterType.INT,
-          default: [1 , 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], // hard coded, need to fix
+          default: [],
           description: 'Record the correct array'
+        },
+        random_order: {
+          type:jsPsych.plugins.parameterType.INT,
+          default: [],
+          description: 'Record the randomized array'
         }
       }
     }
@@ -65,7 +70,7 @@ jsPsych.plugins["trailsA"] = (function() {
   var divArray = []
   var ttArray = []
   recordClick = function(div, gridIndex){
-    const boxValue = correct_box[gridIndex];
+    const boxValue = trial.random_order[gridIndex];
     const expectedValue = trial.correct_order[nRecalled];
     
     if (expectedValue === boxValue) {
@@ -76,6 +81,9 @@ jsPsych.plugins["trailsA"] = (function() {
       console.log(recalledGrid)
       ttArray.push(tt)
       divArray.push(div)
+      if (nRecalled === trial.correct_order.length) {
+        console.log('Last Box!')
+      }
       // messageElement.innerText = '';
     } else {
       // user feedback of mistaken click
@@ -116,8 +124,7 @@ jsPsych.plugins["trailsA"] = (function() {
       matrix.push([m1,m2])
     }
   };
-  
-var correct_box = [16, 2, 8, 6, 14, 9, 3, 11, 1, 5, 13, 7, 10, 15, 4, 12]
+
 
   //red_box = trial.selected_box
   
@@ -137,7 +144,7 @@ var correct_box = [16, 2, 8, 6, 14, 9, 3, 11, 1, 5, 13, 7, 10, 15, 4, 12]
             id="jspsych-spatial-span-grid-button-${i}"
             onclick="recordClick(this,${i})"
           >
-            ${correct_box[i]}
+            ${trial.random_order[i]}
           </div>
         `; // <img src="img/whitegrid.png" style= "width:'+trial.size_cells+'px; height:'+trial.size_cells+'px;"/img></button></div>';
       }

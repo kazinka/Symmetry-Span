@@ -114,7 +114,12 @@
   //}
 
 
+  // Array.from({length: 16}, (_, i) => {
+  //   const halfIndex = Math.floor(i/2);
+  //   return i % 2 ? String.fromCharCode(halfIndex+65) : halfIndex + 1 
+  // })
 
+const correctOrder = Array.from({length: 16}, (_, i) => i + 1);
 var test_stimuli = {
   type: 'trailsA',
   grid_size: function(){
@@ -122,6 +127,8 @@ var test_stimuli = {
   },
   // correct_order: function(){
   //   return selection },
+  correct_order: () => correctOrder,
+  random_order: () => jsPsych.randomization.sampleWithoutReplacement(correctOrder, correctOrder.length),
   data: function(){
     return {set_size: setSizes[n]}  },
   on_finish: function(){
