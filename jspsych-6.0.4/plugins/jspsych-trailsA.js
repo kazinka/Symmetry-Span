@@ -28,34 +28,85 @@ jsPsych.plugins["trailsA"] = (function() {
         },
         size_cells: {
           type: jsPsych.plugins.parameterType.INT,
-          pretty_name: 'Trial duration',
+          pretty_name: 'Size cells',
           default: 70,
           description: 'How long to show the trial.'
         },
-        selected_box: {
-          type: jsPsych.plugins.parameterType.INT,
-          default: undefined,
-          description: "which box should be selected for this trial"
-        },
-        display_red_box: {
-          type: jsPsych.plugins.parameterType.BOOL,
-          default: true,
-          description: "should a red box be marked"
-        },
         correct_order: {
-            type:jsPsych.plugins.parameterType.INT,
-            default: undefined,
-            description: 'Record the correct array'
-          }
+          type:jsPsych.plugins.parameterType.INT,
+          default: [1 , 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], // hard coded, need to fix
+          description: 'Record the correct array'
+        }
       }
     }
   
-   
+  
     plugin.trial = function(display_element, trial) {
-
- 
+  
   // making matrix:
   var grid = trial.grid_size;
+  var recalledGrid = [];
+  var correctGrid = trial.correct_order
+  var nRecalled = 0
+  var nothing = " "
+  var acc = 0
+  
+  function indexOfArray(val, array) {
+    var
+      hash = {},
+      indexes = {},
+      i, j;
+    for(i = 0; i < array.length; i++) {
+      hash[array[i]] = i;
+    }
+    return (hash.hasOwnProperty(val)) ? hash[val] : -1;
+  };
+  
+  var divArray = []
+  var ttArray = []
+  recordClick = function(div, gridIndex){
+    const boxValue = correct_box[gridIndex];
+    const expectedValue = trial.correct_order[nRecalled];
+    
+    if (expectedValue === boxValue) {
+      nRecalled += 1
+      var tt = `#${div.getAttribute('id')}`
+      display_element.querySelector(tt).className += '-responded';
+      recalledGrid.push(boxValue);
+      console.log(recalledGrid)
+      ttArray.push(tt)
+      divArray.push(div)
+      // messageElement.innerText = '';
+    } else {
+      // user feedback of mistaken click
+      // messageElement.innerText = '';
+    }
+  }
+  
+  clearSpace = function(){
+    if (nRecalled>0){
+    recalledGrid = recalledGrid.slice(0, (recalledGrid.length-1))
+    console.log(recalledGrid)
+    var div = divArray[divArray.length-1]
+    var tt = ttArray[ttArray.length-1]
+    nRecalled -= 1
+    div.innerHTML = nothing
+    display_element.querySelector(tt).className ="jspsych-btn-grid"
+    divArray = divArray.slice(0, (divArray.length-1))
+    ttArray = ttArray.slice(0, (ttArray.length-1))
+  }
+    // for (i=0; i<matrix.length; i++){
+    //  var id = "jspsych-spatial-span-grid-button-"+i
+    //   var div = document.getElementById(id);
+    //   div.innerHTML = nothing
+    //   display_element.querySelector("#"+"jspsych-spatial-span-grid-button-"+i).className ="jspsych-btn-grid"
+    // }
+  }
+  
+  // blankSpace = function(){
+  //   recalledGrid.push("blank")
+  //   nRecalled+=1
+  // }
   
   var matrix = [];
   for (var i=0; i<grid; i++){
@@ -65,27 +116,80 @@ jsPsych.plugins["trailsA"] = (function() {
       matrix.push([m1,m2])
     }
   };
-  //const range = (start, stop, step) => Array.from({ length: (stop - start) / step + 1}, (_, i) => start + (i * step));
-  // var trial_length = range(1,grid^2,1);
-  var trial_length = jsPsych.randomization.sampleWithoutReplacement(matrix, grid^2)
+  
+var correct_box = [16, 2, 8, 6, 14, 9, 3, 11, 1, 5, 13, 7, 10, 15, 4, 12]
 
-  red_box = trial.selected_box
+  //red_box = trial.selected_box
   
       paper_size = grid*trial.size_cells;
   
-      display_element.innerHTML = '<div id="jspsych-html-button-response-btngroup" style= "position: relative; width:' + paper_size + 'px; height:' + paper_size + 'px"></div>';
+      display_element.innerHTML = '<div style="font-size:24">GO!<br><br></div>'
+      display_element.innerHTML += '<div><br></div>'
+      display_element.innerHTML += '<div id="jspsych-html-button-response-btngroup" style= "position: relative; width:' + paper_size + 'px; height:' + paper_size + 'px"></div>';
       var paper = display_element.querySelector("#jspsych-html-button-response-btngroup");
   
+      var trial_num=Array.from({length: grid^2}, () => Math.floor(Math.random() * grid^2));
       for (var i=0; i<matrix.length; i++){
-      paper.innerHTML += '<div class="jspsych-grid" style="position: absolute; top:'+ matrix[i][0]*(trial.size_cells-3) +'px; left:'+matrix[i][1]*(trial.size_cells-3)+'px";><div class="whiteBox" /div> </div>';
-        paper.innerHTML = trial_length[i] 
+      paper.innerHTML += '<div class="jspsych-btn-grid" style="position: absolute; top:'+ matrix[i][0]*(trial.size_cells-3) +'px; left:'+matrix[i][1]*(trial.size_cells-3)+'px"; id="jspsych-spatial-span-grid-button-' +i+'" onclick="recordClick(this,'+i+')">'+correct_box[i]+'</div>';// <img src="img/whitegrid.png" style= "width:'+trial.size_cells+'px; height:'+trial.size_cells+'px;"/img></button></div>';
     }
   
-    if (trial.display_red_box){
-       paper.innerHTML += '<div class="jspsych-grid" style="position: absolute; top:'+ red_box[0]*(trial.size_cells-3) +'px; left:'+red_box[1]*(trial.size_cells-3)+'px";><div class="redBox" /div></div>';
-     }
+  //  display_element.innerHTML += '<div class="jspsych-btn-numpad" style="display: inline-block; position: relative; left:-42.5px;  margin:'+10+' '+0+'" id="jspsych-html-button-response-button-clear" onclick="blankSpace(this)">Blank</div>';
+  
+  //display_element.innerHTML += '<div></n></div>'
+  //  display_element.innerHTML += '<div class="jspsych-btn-numpad" style="display: inline-block; margin:'+30+' '+3+'" id="jspsych-html-button-response-button-clear" onclick="clearSpace(this)">Backspace</div>';
+  
+    display_element.innerHTML += '<div class="jspsych-btn-numpad" style="display: inline-block; margin:'+30+' '+30+'" id="jspsych-html-button-response-button">Done</div>';
+  
   
   var start_time = Date.now();
+  
+  
+      display_element.querySelector('#jspsych-html-button-response-button').addEventListener('click', function(e){
+            var acc = 0
+            for (var i=0; i<correctGrid.length; i++){
+              var id = indexOfArray(correctGrid[i], matrix)
+              if (recalledGrid[i] == id){
+                acc += 1
+              }
+            }
+            console.log(acc)
+            choice = 0
+          console.log(indexOfArray(correctGrid[1], matrix), recalledGrid[1])
+      after_response(acc);
+    });
+  
+  var response = {
+    rt: null,
+    button: null
+  };
+  
+  // function checkResponse(){
+  //
+  // }
+  //
+  function after_response(choice) {
+  
+    // measure rt
+    var end_time = Date.now();
+    var rt = end_time - start_time;
+    var choiceRecord = choice;
+    response.button = choice;
+    response.rt = rt;
+  
+    // after a valid response, the stimulus will have the CSS class 'responded'
+    // which can be used to provide visual feedback that a response was recorded
+    //display_element.querySelector('#jspsych-html-button-response-stimulus').className += ' responded';
+  
+    // disable all the buttons after a response
+    var btns = document.querySelectorAll('.jspsych-html-button-response-button button');
+    for(var i=0; i<btns.length; i++){
+      //btns[i].removeEventListener('click');
+      btns[i].setAttribute('disabled', 'disabled');
+    }
+  
+    clear_display();
+      end_trial();
+  };
   
   if (trial.trial_duration !== null) {
     jsPsych.pluginAPI.setTimeout(function() {
@@ -93,7 +197,6 @@ jsPsych.plugins["trailsA"] = (function() {
       end_trial();
     }, trial.trial_duration);
   }
-  
   
   function clear_display(){
       display_element.innerHTML = '';
@@ -107,8 +210,10 @@ jsPsych.plugins["trailsA"] = (function() {
   
     // gather the data to store for the trial
     var trial_data = {
-      selected_square: red_box
-    };
+      rt: response.rt,
+      recall: recalledGrid,
+      stimuli: correctGrid,
+      accuracy: response.button}
   
     // move on to the next trial
     jsPsych.finishTrial(trial_data);

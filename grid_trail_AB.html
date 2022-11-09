@@ -32,7 +32,7 @@
 
     minSetSize = 3 // starting length of each trial (i.e., min number of letters in a trial)
     maxSetSize = 5 // ending length of each trial (i.e., max number of letters in a trial)
-    repSet = 3 // number of times each set size should be repeated
+    repSet = 1 // number of times each set size should be repeated
     randomize = true // present different set sizes in random order. if false, set sizes will be presented in ascending order
     file_name = null // file name for data file. if null, a default name consisting of the participant ID and a unique number is chosen.
     local = false // save the data file locally.
@@ -42,12 +42,12 @@
                 // In case of problems, feel free to contact me :)
 
   //----------------------------------------------------------------------
-  var setSizes = []    // different set sizes
-  for (var i = minSetSize; i<= maxSetSize; i++){
-    for (var r = 1; r<= repSet; r++){
-      setSizes.push(i)
-    }
-  }
+  var setSizes = [16]    // different set sizes
+  //for (var i = minSetSize; i<= maxSetSize; i++){
+  //  for (var r = 1; r<= repSet; r++){
+  //    setSizes.push(i)
+  //  }
+  //}
 
   var grid = 4;
   var matrix = [];
@@ -74,9 +74,6 @@
 
   var selection = jsPsych.randomization.sampleWithoutReplacement(matrix, setSizes[n])
   var selection_id = -1  //keeps track of recall items within a test stack
-
-  var nSymmetryAcc = 0 //feedback
-  var nSquaresRecalled = 0 //feedback
 
   var instructions = {
     type: 'instructions',
@@ -105,70 +102,34 @@
     show_clickable_nav: true
   }
 
-  var instructions3 = {
-    type: 'instructions',
-    pages: function(){
-      pageOne = '<div style="font-size:20px;">We have finished with the practice trials.<br><br>We will now start with the main trials.<br><br>Press "Next" to start the trials.<br><br></div>'
-      return [pageOne]
-    },
-    allow_backward: false,
-    button_label_next: "Next",
-    show_clickable_nav: true
-  }
+  //var instructions3 = {
+  //  type: 'instructions',
+  //  pages: function(){
+  //    pageOne = '<div style="font-size:20px;">We have finished with the practice trials.<br><br>We will now start with the main trials.<br><br>Press "Next" to start the trials.<br><br></div>'
+  //    return [pageOne]
+  //  },
+  //  allow_backward: false,
+  //  button_label_next: "Next",
+  //  show_clickable_nav: true
+  //}
 
-  var test_stimuli = {
-  type: 'trailsA',
-  grid_size: function(){
-    return grid
-  },
-  trial_duration:1000,
-  selected_box: function(){
-    selection_id+=1
-    return selection[selection_id]
-  }
-}
-var nProportionDemo = 0
-  var cog_load_demo = {
-    type: 'symmetry-judgement-task',
-    size: 8,
-    trial_duration: null,
-    number_darkened: [17, 18, 19],
-    stimulus: "Is this image symmetric?",
-    proportion: function(){
-      nProportionDemo += 1
-      if (nProportionDemo == 1){
-        return 1
-      } else if (nProportionDemo == 2 ){
-        return 0
-      } else {
-        return 0.5
-      }
-    }
-  }
 
-var cog_load = {
-  type: 'symmetry-judgement-task',
-  size: 8, //adjusts the number of blocks in the symmetry grid
-  trial_duration:6000,
-  number_darkened: [17, 18, 19], 
-  stimulus: "Is this image symmetric?",
-  on_finish: function(){
-    var acc = jsPsych.data.get().last(1).values()[0].accuracy;
-    if (acc==1){
-      nSymmetryAcc+=1
-    }
-  }
-}
 
 var test_stimuli = {
   type: 'trailsA',
   grid_size: function(){
     return grid
   },
-  trial_duration:1000,
-  selected_box: function(){
-    selection_id+=1
-    return selection[selection_id]
+  // correct_order: function(){
+  //   return selection },
+  data: function(){
+    return {set_size: setSizes[n]}  },
+  on_finish: function(){
+    //nSquares = setSizes[n]
+    nSquaresRecalled = jsPsych.data.get().last(1).values()[0].accuracy;
+    n+=1
+    selection = jsPsych.randomization.sampleWithoutReplacement(matrix, setSizes[n])
+    selection_id = -1
   }
 }
 
@@ -189,30 +150,11 @@ var end_test_stimuli = {
      }
  }
 
-var recall = {
-  type: 'spatial-span-recall',
-  grid_size: function(){
-    return grid },
-  correct_order: function(){
-    return selection },
-  data: function(){
-    return {set_size: setSizes[n]}  },
-  on_finish: function(){
-    nSquares = setSizes[n]
-    nSquaresRecalled = jsPsych.data.get().last(1).values()[0].accuracy;
-    n+=1
-    selection = jsPsych.randomization.sampleWithoutReplacement(matrix, setSizes[n])
-    selection_id = -1
-  }
-}
 
 var feedback = {
     type: 'instructions',
     pages: function(){
-      pageOne = "<div style='font-size:20px;'><b>You recalled <font color='blue'>"+nSquaresRecalled+" out of "+nSquares+"</font> squares in their correct order.</b><br><br>"
-      if (n>nPracticeTrials){
-        pageOne+= "You made <font color='blue'>"+nSymmetryAcc+" out of "+nSquares+"</font> accurate symmetry judgement(s).<br><br></div>"
-      }
+      pageOne = "<div style='font-size:20px;'><b>You took x seconds to complete the task.</b><br><br>"
       return [pageOne]
     },
     allow_backward: false,
@@ -223,22 +165,6 @@ var feedback = {
     }
   }
 
-  var feedbackSymm = {
-    type: 'html-keyboard-response',
-    stimulus: function(){
-      var text = ""
-      var accuracy = jsPsych.data.get().last(1).values()[0].accuracy
-      if (accuracy==1){
-        text += '<div style="font-size:35px; color:rgb(0 220 0)"><b>Correct</div>'
-      } else{
-        text += '<div style="font-size:35px; color:rgb(240 0 0)"><b>Incorrect</div>'
-      }
-      //text += '<div style="font-size:30px; color:rgb(0 0 0)"><br><br>New trial starting now.</div>'
-      return text
-    },
-    choices: jsPsych.NO_KEYS,
-    trial_duration: 1000
-  }
 
   var conclusion = {
     type: 'html-keyboard-response',
@@ -287,42 +213,52 @@ var feedback = {
      }
   }
 
-  var test_stack = {
-    timeline: [test_stimuli, cog_load, end_test_stimuli],
-    repetitions: 10
+  var test_stackA = {
+    timeline: [test_stimuli, end_test_stimuli],
+    repetitions: 1
   }
 
-  var test_procedure = {
-    timeline: [test_stack, recall, feedback],
+  var trailsA_Test = {
+    timeline: [test_stackA, feedback],
     repetitions: nTrials
   }
 
-  var squaresDemoStack = {
+  var test_stackB = {
     timeline: [test_stimuli, end_test_stimuli],
-    repetitions: 10
+    repetitions: 1
   }
 
-  var squaresDemo = {
-    timeline: [squaresDemoStack, recall, feedback],
-    repetitions: nPracticeTrials
+  var trailsB_Test = {
+    timeline: [test_stackB, feedback],
+    repetitions: nTrials
   }
 
-  var symmetryDemo = {
-    timeline: [cog_load_demo, feedbackSymm],
-    repetitions: 5
-  }
+ // var trailsADemoStack = {
+ //   timeline: [test_stimuli, end_test_stimuli],
+ //   repetitions: 10
+ // }
 
-  var fullDemo = {
-    timeline: [test_stack, recall, feedback],
-    repetitions: nfullDemo
-  }
+  //var trailsA_Demo = {
+  //  timeline: [trailsADemoStack, feedback],
+  //  repetitions: nPracticeTrials
+  //}
+
+  //var trailsBDemoStack = {
+  //  timeline: [test_stimuli, end_test_stimuli],
+  //  repetitions: 10
+  //}
+
+  //var trailsB_Demo = {
+  //  timeline: [trailsBDemoStack, feedback],
+  //  repetitions: nPracticeTrials
+  //}
 
   timeline = [p_details]
   timeline.push({
     type: 'fullscreen',
     fullscreen_mode: true
   });
-timeline = timeline.concat([instructions, squaresDemo, instructions2, symmetryDemo, instructions3, fullDemo, test_procedure])
+timeline = timeline.concat([instructions, trailsA_Test,instructions2, trailsB_Test])
 timeline.push({
   type: 'fullscreen',
   fullscreen_mode: false
