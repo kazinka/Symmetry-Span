@@ -125,37 +125,27 @@ jsPsych.plugins["trailsA"] = (function() {
     }
   };
 
+  paper_size = grid*trial.size_cells;
 
-  //red_box = trial.selected_box
-  
-      paper_size = grid*trial.size_cells;
-  
-      display_element.innerHTML = '<div style="font-size:24">GO!<br><br></div>'
-      display_element.innerHTML += '<div><br></div>'
-      display_element.innerHTML += '<div id="jspsych-html-button-response-btngroup" style= "position: relative; width:' + paper_size + 'px; height:' + paper_size + 'px"></div>';
-      var paper = display_element.querySelector("#jspsych-html-button-response-btngroup");
-  
-      var trial_num=Array.from({length: grid^2}, () => Math.floor(Math.random() * grid^2));
-      for (var i=0; i<matrix.length; i++) {
-        paper.innerHTML += `
-          <div
-            class="jspsych-btn-grid"
-            style="position: absolute; top:${matrix[i][0]*(trial.size_cells-3)}px; left:${matrix[i][1]*(trial.size_cells-3)}px;"
-            id="jspsych-spatial-span-grid-button-${i}"
-            onclick="recordClick(this,${i})"
-          >
-            ${trial.random_order[i]}
-          </div>
-        `; // <img src="img/whitegrid.png" style= "width:'+trial.size_cells+'px; height:'+trial.size_cells+'px;"/img></button></div>';
-      }
-  
-  //  display_element.innerHTML += '<div class="jspsych-btn-numpad" style="display: inline-block; position: relative; left:-42.5px;  margin:'+10+' '+0+'" id="jspsych-html-button-response-button-clear" onclick="blankSpace(this)">Blank</div>';
-  
-  //display_element.innerHTML += '<div></n></div>'
-  //  display_element.innerHTML += '<div class="jspsych-btn-numpad" style="display: inline-block; margin:'+30+' '+3+'" id="jspsych-html-button-response-button-clear" onclick="clearSpace(this)">Backspace</div>';
-  
-    display_element.innerHTML += '<div class="jspsych-btn-numpad" style="display: inline-block; margin:'+30+' '+30+'" id="jspsych-html-button-response-button">Done</div>';
-  
+  display_element.innerHTML = '<div style="font-size:24">GO!<br><br></div>'
+  display_element.innerHTML += '<div><br></div>'
+  display_element.innerHTML += '<div id="jspsych-html-button-response-btngroup" style= "position: relative; width:' + paper_size + 'px; height:' + paper_size + 'px"></div>';
+  var paper = display_element.querySelector("#jspsych-html-button-response-btngroup");
+
+  for (var i=0; i<matrix.length; i++) {
+    paper.innerHTML += `
+      <div
+        class="jspsych-btn-grid"
+        style="position: absolute; top:${matrix[i][0]*(trial.size_cells-3)}px; left:${matrix[i][1]*(trial.size_cells-3)}px;"
+        id="jspsych-spatial-span-grid-button-${i}"
+        onclick="recordClick(this,${i})"
+      >
+        ${trial.random_order[i]}
+      </div>
+    `;
+  }
+  display_element.innerHTML += '<div class="jspsych-btn-numpad" style="display: inline-block; margin:'+30+' '+30+'" id="jspsych-html-button-response-button">Done</div>';
+
   
   var start_time = Date.now();
   
@@ -238,4 +228,3 @@ jsPsych.plugins["trailsA"] = (function() {
   
     return plugin;
   })();
-  

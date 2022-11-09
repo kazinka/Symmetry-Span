@@ -63,17 +63,17 @@
   if (randomize){
     setSizes = jsPsych.randomization.sampleWithoutReplacement(setSizes, nTrials)} // shuffle through the set sizes
 
-  var squaregridDemoArray = [3,4,4]
-  var fullDemoArray = [3,3,4]
-  var nPracticeTrials = squaregridDemoArray.length //number of practice trials for square memorization
-  var nfullDemo = fullDemoArray.length
+  //var squaregridDemoArray = [3,4,4]
+  //var fullDemoArray = [3,3,4]
+  //var nPracticeTrials = squaregridDemoArray.length //number of practice trials for square memorization
+  //var nfullDemo = fullDemoArray.length
 
-  var setSizes = squaregridDemoArray.concat(fullDemoArray, setSizes)
-  var totalTrials = setSizes.length //total number of trials in the entire task
+  //var setSizes = squaregridDemoArray.concat(fullDemoArray, setSizes)
+  //var totalTrials = setSizes.length //total number of trials in the entire task
   var n = 0 //keeps track of number of trials gone by
 
-  var selection = jsPsych.randomization.sampleWithoutReplacement(matrix, setSizes[n])
-  var selection_id = -1  //keeps track of recall items within a test stack
+  //var selection = jsPsych.randomization.sampleWithoutReplacement(matrix, setSizes[n])
+  //var selection_id = -1  //keeps track of recall items within a test stack
 
   var instructions = {
     type: 'instructions',
@@ -125,8 +125,6 @@ var test_stimuli = {
   grid_size: function(){
     return grid
   },
-  // correct_order: function(){
-  //   return selection },
   correct_order: () => correctOrder,
   random_order: () => jsPsych.randomization.sampleWithoutReplacement(correctOrder, correctOrder.length),
   data: function(){
@@ -135,27 +133,27 @@ var test_stimuli = {
     //nSquares = setSizes[n]
     nSquaresRecalled = jsPsych.data.get().last(1).values()[0].accuracy;
     n+=1
-    selection = jsPsych.randomization.sampleWithoutReplacement(matrix, setSizes[n])
-    selection_id = -1
+   //selection = jsPsych.randomization.sampleWithoutReplacement(matrix, setSizes[n])
+    //selection_id = -1
   }
 }
 
-var end_test_stimuli = {
-  type: 'trailsA',
-  grid_size: function(){
-    return grid
-  },
-  trial_duration: 0,
-  selected_box: function(){
-    return selection[selection_id]
-  },
-  display_red_box: false,
-  on_finish: function(){
-     if (selection_id+1>=selection.length){
-         jsPsych.endCurrentTimeline()
-       }
-     }
- }
+//var end_test_stimuli = {
+//  type: 'trailsA',
+//  grid_size: function(){
+//    return grid
+//  },
+//  trial_duration: 0,
+//  selected_box: function(){
+//    return selection[selection_id]
+//  },
+//  display_red_box: false,
+//  on_finish: function(){
+//     if (selection_id+1>=selection.length){
+//         jsPsych.endCurrentTimeline()
+//       }
+//     }
+// }
 
 
 var feedback = {
@@ -206,7 +204,7 @@ var feedback = {
    stimulus: " ",
    trial_duration: 100,
    on_finish: function(data) {
-        var data = jsPsych.data.get().filter([{trial_type:'spatial-span-recall'}, {trial_type:'symmetry-judgement-task'}]);
+        var data = jsPsych.data.get().filter([{trial_type:'spatial-span-recall'}]);
         if (file_name == null){
           file_name = "Grid_trails_AB_"+partN+"_"+IDsub.toString()+".csv"}
         else{
@@ -220,23 +218,23 @@ var feedback = {
      }
   }
 
-  var test_stackA = {
-    timeline: [test_stimuli, end_test_stimuli],
-    repetitions: 1
-  }
+ // var test_stackA = {
+ //   timeline: [test_stimuli, end_test_stimuli],
+ //  repetitions: 1
+  //}
 
   var trailsA_Test = {
-    timeline: [test_stackA, feedback],
+    timeline: [test_stimuli, feedback],
     repetitions: nTrials
   }
 
-  var test_stackB = {
-    timeline: [test_stimuli, end_test_stimuli],
-    repetitions: 1
-  }
+  //var test_stackB = {
+  //  timeline: [test_stimuli, end_test_stimuli],
+  //  repetitions: 1
+  //}
 
   var trailsB_Test = {
-    timeline: [test_stackB, feedback],
+    timeline: [test_stimuli, feedback],
     repetitions: nTrials
   }
 
