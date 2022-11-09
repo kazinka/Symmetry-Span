@@ -40,7 +40,7 @@ jsPsych.plugins["spatial-span"] = (function() {
       display_red_box: {
         type: jsPsych.plugins.parameterType.BOOL,
         default: true,
-        description: "should a rd box be marked"
+        description: "should a red box be marked"
       }
     }
   }

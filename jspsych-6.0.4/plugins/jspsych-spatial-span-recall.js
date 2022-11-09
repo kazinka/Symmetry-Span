@@ -35,7 +35,7 @@ jsPsych.plugins["spatial-span-recall"] = (function() {
       correct_order: {
         type:jsPsych.plugins.parameterType.INT,
         default: undefined,
-        description: 'Recored the correct array'
+        description: 'Record the correct array'
       }
     }
   }
