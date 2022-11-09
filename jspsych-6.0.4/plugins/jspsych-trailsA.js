@@ -129,9 +129,18 @@ var correct_box = [16, 2, 8, 6, 14, 9, 3, 11, 1, 5, 13, 7, 10, 15, 4, 12]
       var paper = display_element.querySelector("#jspsych-html-button-response-btngroup");
   
       var trial_num=Array.from({length: grid^2}, () => Math.floor(Math.random() * grid^2));
-      for (var i=0; i<matrix.length; i++){
-      paper.innerHTML += '<div class="jspsych-btn-grid" style="position: absolute; top:'+ matrix[i][0]*(trial.size_cells-3) +'px; left:'+matrix[i][1]*(trial.size_cells-3)+'px"; id="jspsych-spatial-span-grid-button-' +i+'" onclick="recordClick(this,'+i+')">'+correct_box[i]+'</div>';// <img src="img/whitegrid.png" style= "width:'+trial.size_cells+'px; height:'+trial.size_cells+'px;"/img></button></div>';
-    }
+      for (var i=0; i<matrix.length; i++) {
+        paper.innerHTML += `
+          <div
+            class="jspsych-btn-grid"
+            style="position: absolute; top:${matrix[i][0]*(trial.size_cells-3)}px; left:${matrix[i][1]*(trial.size_cells-3)}px;"
+            id="jspsych-spatial-span-grid-button-${i}"
+            onclick="recordClick(this,${i})"
+          >
+            ${correct_box[i]}
+          </div>
+        `; // <img src="img/whitegrid.png" style= "width:'+trial.size_cells+'px; height:'+trial.size_cells+'px;"/img></button></div>';
+      }
   
   //  display_element.innerHTML += '<div class="jspsych-btn-numpad" style="display: inline-block; position: relative; left:-42.5px;  margin:'+10+' '+0+'" id="jspsych-html-button-response-button-clear" onclick="blankSpace(this)">Blank</div>';
   
