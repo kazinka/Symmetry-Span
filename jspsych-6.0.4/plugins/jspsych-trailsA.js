@@ -70,11 +70,27 @@ jsPsych.plugins["trailsA"] = (function() {
   var divArray = []
   var ttArray = []
   var mistakes = []
-  var ttArrayErrors = []
+
+  function indexToCoordinates(index) {
+    var x = index % grid;
+    var y = Math.floor(index/grid);
+    return [x, y];
+  }
+
+  function indexDistance(index1,index2) {
+    var xDist = index1[0] - index2[0];
+    var yDist = index1[1] - index2[1];
+    var Dist = Math.round(Math.sqrt(Math.pow(xDist,2) + Math.pow(yDist,2))*1000)/1000
+    return(Dist)
+  }
 
   recordClick = function(div, gridIndex){
     const boxValue = trial.random_order[gridIndex];
     const expectedValue = trial.correct_order[nRecalled];
+    const expectedGridIndex = trial.random_order.indexOf(expectedValue);
+    const gridCoord = indexToCoordinates(gridIndex);
+    const expectedGridCoord = indexToCoordinates(expectedGridIndex);
+    const distance = indexDistance(gridCoord,expectedGridCoord);
     
     if (expectedValue === boxValue) {
       nRecalled += 1
@@ -86,6 +102,7 @@ jsPsych.plugins["trailsA"] = (function() {
       divArray.push(div)
       if (nRecalled === trial.correct_order.length) {
         console.log('Last Box!')
+        console.dir(mistakes)
         //record the end of the time
         //after_response(mistakes)
         //end the trial without button?
@@ -94,9 +111,13 @@ jsPsych.plugins["trailsA"] = (function() {
     } else {
       //user feedback of mistaken click
       //collect where the mistakes were made
-      //mistakes.push(nRecalled)
-      //var tt = `#${div.getAttribute('id')}`
-      //ttArrayErrors.push(tt)
+      mistakes.push({
+        boxValue,
+        expectedValue,
+        gridIndex,
+        expectedGridIndex,
+        distance,
+      })
       //send message that they have made a mistake and what number they were on
       const preamble = 'Wrong choice,';
       const suggestion = nRecalled === 0 ?
