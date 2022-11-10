@@ -69,6 +69,9 @@ jsPsych.plugins["trailsA"] = (function() {
   
   var divArray = []
   var ttArray = []
+  var mistakes = []
+  var ttArrayErrors = []
+
   recordClick = function(div, gridIndex){
     const boxValue = trial.random_order[gridIndex];
     const expectedValue = trial.correct_order[nRecalled];
@@ -83,38 +86,25 @@ jsPsych.plugins["trailsA"] = (function() {
       divArray.push(div)
       if (nRecalled === trial.correct_order.length) {
         console.log('Last Box!')
+        //record the end of the time
+        //after_response(mistakes)
+        //end the trial without button?
       }
-      // messageElement.innerText = '';
+      //if message was changed, return it back to Go!
+      //messageElement=document.querySelector("display_element.message-box")
+      //messageElement.innerText = 'GO!';
     } else {
-      // user feedback of mistaken click
-      // messageElement.innerText = '';
+      //user feedback of mistaken click
+      //collect where the mistakes were made
+      //mistakes.push(nRecalled)
+      //var tt = `#${div.getAttribute('id')}`
+      //ttArrayErrors.push(tt)
+      //send message that they have made a mistake and what number they were on
+      //messageElement=display_element.querySelector("message-box");
+      //messageElement.innerText = `'You missed one. What comes after ${nRecalled}'`;
     }
   }
   
-  clearSpace = function(){
-    if (nRecalled>0){
-    recalledGrid = recalledGrid.slice(0, (recalledGrid.length-1))
-    console.log(recalledGrid)
-    var div = divArray[divArray.length-1]
-    var tt = ttArray[ttArray.length-1]
-    nRecalled -= 1
-    div.innerHTML = nothing
-    display_element.querySelector(tt).className ="jspsych-btn-grid"
-    divArray = divArray.slice(0, (divArray.length-1))
-    ttArray = ttArray.slice(0, (ttArray.length-1))
-  }
-    // for (i=0; i<matrix.length; i++){
-    //  var id = "jspsych-spatial-span-grid-button-"+i
-    //   var div = document.getElementById(id);
-    //   div.innerHTML = nothing
-    //   display_element.querySelector("#"+"jspsych-spatial-span-grid-button-"+i).className ="jspsych-btn-grid"
-    // }
-  }
-  
-  // blankSpace = function(){
-  //   recalledGrid.push("blank")
-  //   nRecalled+=1
-  // }
   
   var matrix = [];
   for (var i=0; i<grid; i++){
@@ -126,10 +116,27 @@ jsPsych.plugins["trailsA"] = (function() {
   };
 
   paper_size = grid*trial.size_cells;
+ 
+  display_element.innerHTML = `
+  <div 
+    id="message-box"
+    style="font-size:24">
+    GO!
+    <br>
+    <br>
+  </div>
+  `
 
-  display_element.innerHTML = '<div style="font-size:24">GO!<br><br></div>'
   display_element.innerHTML += '<div><br></div>'
   display_element.innerHTML += '<div id="jspsych-html-button-response-btngroup" style= "position: relative; width:' + paper_size + 'px; height:' + paper_size + 'px"></div>';
+   
+  //display_element.innerHTML += `
+  //  <div 
+  //    id="jspsych-html-button-response-btngroup" 
+  //    style= "position: relative; width:${paper_size} px; height: ${paper_size} px;"
+  //  >
+  //  </div>
+  //  `;
   var paper = display_element.querySelector("#jspsych-html-button-response-btngroup");
 
   for (var i=0; i<matrix.length; i++) {
@@ -144,25 +151,31 @@ jsPsych.plugins["trailsA"] = (function() {
       </div>
     `;
   }
-  display_element.innerHTML += '<div class="jspsych-btn-numpad" style="display: inline-block; margin:'+30+' '+30+'" id="jspsych-html-button-response-button">Done</div>';
+  display_element.innerHTML += `
+  <div 
+    class="jspsych-btn-numpad" 
+    style="display: inline-block; margin: ${30} ${30}" 
+    id="jspsych-html-button-response-button"
+  >
+    Done
+  </div>`;
 
-  
   var start_time = Date.now();
   
-  
-      display_element.querySelector('#jspsych-html-button-response-button').addEventListener('click', function(e){
-            var acc = 0
-            for (var i=0; i<correctGrid.length; i++){
-              var id = indexOfArray(correctGrid[i], matrix)
-              if (recalledGrid[i] == id){
-                acc += 1
-              }
-            }
-            console.log(acc)
-            choice = 0
-          console.log(indexOfArray(correctGrid[1], matrix), recalledGrid[1])
-      after_response(acc);
-    });
+  //remove the done button?
+  display_element.querySelector('#jspsych-html-button-response-button').addEventListener('click', function(e){
+        var acc = 0
+        for (var i=0; i<correctGrid.length; i++){
+          var id = indexOfArray(correctGrid[i], matrix)
+          if (recalledGrid[i] == id){
+            acc += 1
+          }
+        }
+        console.log(acc)
+        choice = 0
+      console.log(indexOfArray(correctGrid[1], matrix), recalledGrid[1])
+  after_response(acc);
+  });
   
   var response = {
     rt: null,
@@ -174,7 +187,6 @@ jsPsych.plugins["trailsA"] = (function() {
   // }
   //
   function after_response(choice) {
-  
     // measure rt
     var end_time = Date.now();
     var rt = end_time - start_time;
