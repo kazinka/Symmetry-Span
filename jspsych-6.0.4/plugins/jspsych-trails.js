@@ -2,7 +2,7 @@
  * Example plugin template
  */
 
-jsPsych.plugins["trailsA"] = (function() {
+jsPsych.plugins["trails"] = (function() {
 
     var plugin = {};
   
@@ -12,7 +12,7 @@ jsPsych.plugins["trailsA"] = (function() {
   
   
     plugin.info = {
-      name: 'trailsA',
+      name: 'trails',
       description: '',
       parameters: {
         grid_size: {
