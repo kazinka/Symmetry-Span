@@ -56,17 +56,7 @@ jsPsych.plugins["trailsA"] = (function() {
   var nothing = " "
   var acc = 0
   
-  function indexOfArray(val, array) {
-    var
-      hash = {},
-      indexes = {},
-      i, j;
-    for(i = 0; i < array.length; i++) {
-      hash[array[i]] = i;
-    }
-    return (hash.hasOwnProperty(val)) ? hash[val] : -1;
-  };
-  
+  // check and record responses:
   var divArray = []
   var ttArray = []
   var mistakes = []
@@ -77,11 +67,10 @@ jsPsych.plugins["trailsA"] = (function() {
     return [x, y];
   }
 
-  function indexDistance(index1,index2) {
-    var xDist = index1[0] - index2[0];
-    var yDist = index1[1] - index2[1];
-    var Dist = Math.round(Math.sqrt(Math.pow(xDist,2) + Math.pow(yDist,2))*1000)/1000
-    return(Dist)
+  function coordDistance(coord1,coord2) {
+    var xDist = coord1[0] - coord2[0];
+    var yDist = coord1[1] - coord2[1];
+    return Math.round(Math.sqrt(Math.pow(xDist,2) + Math.pow(yDist,2))*1000)/1000
   }
 
   recordClick = function(div, gridIndex){
@@ -90,7 +79,7 @@ jsPsych.plugins["trailsA"] = (function() {
     const expectedGridIndex = trial.random_order.indexOf(expectedValue);
     const gridCoord = indexToCoordinates(gridIndex);
     const expectedGridCoord = indexToCoordinates(expectedGridIndex);
-    const distance = indexDistance(gridCoord,expectedGridCoord);
+    const distance = coordDistance(gridCoord,expectedGridCoord);
     
     if (expectedValue === boxValue) {
       nRecalled += 1
@@ -100,17 +89,16 @@ jsPsych.plugins["trailsA"] = (function() {
       console.log(recalledGrid)
       ttArray.push(tt)
       divArray.push(div)
+      document.getElementById("message-box").innerText=''
       if (nRecalled === trial.correct_order.length) {
         console.log('Last Box!')
         console.dir(mistakes)
         //record the end of the time
-        //after_response(mistakes)
+        after_response()
         //end the trial without button?
-      }
-      document.getElementById("message-box").innerText=''
+      } 
     } else {
-      //user feedback of mistaken click
-      //collect where the mistakes were made
+      //collect information on mistakes made
       mistakes.push({
         boxValue,
         expectedValue,
@@ -177,74 +165,52 @@ jsPsych.plugins["trailsA"] = (function() {
   
   //remove the done button?
   display_element.querySelector('#jspsych-html-button-response-button').addEventListener('click', function(e){
-        var acc = 0
-        for (var i=0; i<correctGrid.length; i++){
-          var id = indexOfArray(correctGrid[i], matrix)
-          if (recalledGrid[i] == id){
-            acc += 1
-          }
-        }
-        console.log(acc)
-        choice = 0
-      console.log(indexOfArray(correctGrid[1], matrix), recalledGrid[1])
-  after_response(acc);
+      console.log(nRecalled)
+      after_response();
   });
-  
-  var response = {
-    rt: null,
-    button: null
-  };
   
   // function checkResponse(){
   //
   // }
   //
-  function after_response(choice) {
+  function after_response() {
     // measure rt
     var end_time = Date.now();
     var rt = end_time - start_time;
-    var choiceRecord = choice;
-    response.button = choice;
-    response.rt = rt;
   
     // after a valid response, the stimulus will have the CSS class 'responded'
     // which can be used to provide visual feedback that a response was recorded
     //display_element.querySelector('#jspsych-html-button-response-stimulus').className += ' responded';
   
     // disable all the buttons after a response
-    var btns = document.querySelectorAll('.jspsych-html-button-response-button button');
-    for(var i=0; i<btns.length; i++){
-      //btns[i].removeEventListener('click');
-      btns[i].setAttribute('disabled', 'disabled');
-    }
+    // var btns = document.querySelectorAll('.jspsych-html-button-response-button button');
+    // for(var i=0; i<btns.length; i++){
+    //   //btns[i].removeEventListener('click');
+    //   btns[i].setAttribute('disabled', 'disabled');
+    // }
   
-    clear_display();
-      end_trial();
+    end_trial(rt);
   };
   
   if (trial.trial_duration !== null) {
     jsPsych.pluginAPI.setTimeout(function() {
-      clear_display();
       end_trial();
     }, trial.trial_duration);
   }
   
-  function clear_display(){
-      display_element.innerHTML = '';
-  }
   
-  
-  function end_trial() {
+  function end_trial(rt = null) {
+    display_element.innerHTML = '';
   
     // kill any remaining setTimeout handlers
     jsPsych.pluginAPI.clearAllTimeouts();
   
     // gather the data to store for the trial
     var trial_data = {
-      rt: response.rt,
-      recall: recalledGrid,
-      stimuli: correctGrid,
-      accuracy: response.button}
+      rt,
+      randomOrder: trial.random_order,
+      mistakes,
+    }
   
     // move on to the next trial
     jsPsych.finishTrial(trial_data);
