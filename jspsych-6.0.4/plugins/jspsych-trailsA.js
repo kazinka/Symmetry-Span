@@ -90,9 +90,7 @@ jsPsych.plugins["trailsA"] = (function() {
         //after_response(mistakes)
         //end the trial without button?
       }
-      //if message was changed, return it back to Go!
-      //messageElement=document.querySelector("display_element.message-box")
-      //messageElement.innerText = 'GO!';
+      document.getElementById("message-box").innerText=''
     } else {
       //user feedback of mistaken click
       //collect where the mistakes were made
@@ -100,8 +98,11 @@ jsPsych.plugins["trailsA"] = (function() {
       //var tt = `#${div.getAttribute('id')}`
       //ttArrayErrors.push(tt)
       //send message that they have made a mistake and what number they were on
-      //messageElement=display_element.querySelector("message-box");
-      //messageElement.innerText = `'You missed one. What comes after ${nRecalled}'`;
+      const preamble = 'Wrong choice,';
+      const suggestion = nRecalled === 0 ?
+        `start with "${expectedValue}".` :
+        `<br/> what comes after "${trial.correct_order[nRecalled - 1]}"?`;
+      document.getElementById("message-box").innerHTML= `${preamble} ${suggestion}`;
     }
   }
   
@@ -118,25 +119,16 @@ jsPsych.plugins["trailsA"] = (function() {
   paper_size = grid*trial.size_cells;
  
   display_element.innerHTML = `
-  <div 
-    id="message-box"
-    style="font-size:24">
-    GO!
-    <br>
-    <br>
-  </div>
+    <div style="font-size:24">
+      GO!
+      <div id="message-box" style="font-size: 18px; color: firebrick; min-height: 60px; margin: 10px;" />
+    </div>
+    <div 
+      id="jspsych-html-button-response-btngroup" 
+      style= "position: relative; width: ${paper_size}px; height: ${paper_size}px;"
+    />
   `
 
-  display_element.innerHTML += '<div><br></div>'
-  display_element.innerHTML += '<div id="jspsych-html-button-response-btngroup" style= "position: relative; width:' + paper_size + 'px; height:' + paper_size + 'px"></div>';
-   
-  //display_element.innerHTML += `
-  //  <div 
-  //    id="jspsych-html-button-response-btngroup" 
-  //    style= "position: relative; width:${paper_size} px; height: ${paper_size} px;"
-  //  >
-  //  </div>
-  //  `;
   var paper = display_element.querySelector("#jspsych-html-button-response-btngroup");
 
   for (var i=0; i<matrix.length; i++) {
