@@ -30,7 +30,7 @@
 
     //----- CUSTOMIZABLE VARIABLES -----------------------------------------
       repSet = 1 // number of times each set size should be repeated
-      randomize = true // present different set sizes in random order. if false, set sizes will be presented in ascending order
+      //randomize = true // present different set sizes in random order. if false, set sizes will be presented in ascending order
       file_name = null // file name for data file. if null, a default name consisting of the participant ID and a unique number is chosen.
       local = false // save the data file locally.
                   // If this test is being run online (e.g., on MTurk), true will cause the file to be downloaded to the participant's computer.
@@ -55,11 +55,41 @@
     var instructions = {
       type: 'instructions',
       pages: function(){
-        pageOne = '<div style="font-size:20px;"><b>INSTRUCTIONS</b><br><br><br>This is the Grid Trails task. <br><br>This task has two parts: <br>(1) numbers <br>(2) numbers & letters <br><br><br></div>'
-        //Add in gif of first two choices
-        pageTwo = '<div style="font-size:20px;">We will first use NUMBERS.<br><br>You will see a grid of squares on the screen.<br>Each square will contain a number.<br>You will need to select each box in numerical order as quickly as possible (start at 1, then go to 2, then go to 3, and so on).<br><br>Below is an example of the grid with numbers. <br><br> <img src="img/symmetrySpanExampleGrid.png" style="height:300px; width:400px"></img></div>'
-        pageThree = '<div style="font-size:20px;">When you select a number, it will turn red.<br>Your task is to select the squares in numerical order as quickly as possible without making errors. <br><br>Click on the square to select the appropriate squares. <br>You will be stopped if you make an error and allowed to try a new box. <br><br></div>'
-        pageFour = '<div style="font-size:20px;">Remember, it is important to move as quickly and accurately as possible.<br>Press "Next" to start the trial.<br><br></div>'
+        pageOne = `
+          <div style="font-size:20px;">
+            <b>INSTRUCTIONS</b>
+            <br><br><br>
+            This is the Grid Trails task. <br><br>
+            This task has two parts: <br>
+            (1) numbers <br>
+            (2) numbers & letters <br>
+            <br><br>
+          </div>
+          `
+        pageTwo = `
+          <div style="font-size:20px;">
+            We will first use NUMBERS.
+            <br><br>
+            You will see a grid of squares on the screen.<br>
+            Each square will contain a number.<br>
+            You will need to select each box in numerical order as quickly as possible (start at 1, then go to 2, then go to 3, and so on).<br><br>
+            Below is an example of the grid with numbers. <br><br> 
+            <img src="img/GridTrailsA_sample.gif" ></img>
+          </div>
+          `
+        pageThree = `
+          <div style="font-size:20px;">
+            When you select a number, it will turn red.<br>
+            Your task is to select the squares in numerical order as quickly as possible without making errors. <br><br>
+            Click on the square to select the appropriate squares. <br>
+            You will be stopped if you make an error and allowed to try a new box. <br><br>
+          </div>
+          `
+        pageFour = `
+          <div style="font-size:20px;">
+            Remember, it is important to move as quickly and accurately as possible.<br>
+            Press "Next" to start the trial.<br><br>
+          </div>`
         return [pageOne, pageTwo, pageThree, pageFour]
       },
       allow_backward: false,
@@ -70,11 +100,35 @@
     var instructions2 = {
       type: 'instructions',
       pages: function(){
-        pageOne = '<div style="font-size:20px;">We will now use NUMBERS and LETTERS.<br><br>You will see the same grid of squares on the screen.<br>This time, each square will contain either a number or a letter.<br>You will select each box alteranting in order between the numbers and letters (Start at 1, then go to the first letter A, then go to the next number 2, and then the next letter B, and so on). <br><br>Below is an example of the grid with numbers. <br> <img src="img/symmetrySpanExampleGrid.png" style="height:300px; width:400px"></img></div>'
-        //Add in gif of the first 3 choices
-        pageTwo = '<div style="font-size:20px;">When you select a square, it will turn red.<br>Your task is to select the squares alternating in order of numbers and letter as quickly as possible without making errors. <br><br>Click on the square to select the appropriate squares. <br>You will be stopped if you make an error and allowed to try a new box. <br><br></div>'
-        pageThree = '<div style="font-size:20px;">Remember, it is important to move as quickly and accurately as possible.<br>Press "Next" to start the trial.<br><br></div>'
-        return [pageOne, pageTwo, pageThree]
+        pageOne = `
+          <div style="font-size:20px;">
+            We will now use NUMBERS and LETTERS.<br><br>
+            You will see the same grid of squares on the screen.<br>
+            This time, each square will contain either a number or a letter.<br>
+          </div>
+          `
+        pageTwo = `
+        <div style="font-size:20px;">
+          You will select each box alternating in order between the numbers and letters (Start at 1, then go to the first letter A, then go to the next number 2, and then the next letter B, and so on). <br><br>
+          Below is an example of the grid with numbers and letters. <br> 
+          <img src="img/GridTrailsB_sample.gif" style="height:300px; width:300px"></img>
+        </div>
+        `
+        pageThree = `
+          <div style="font-size:20px;">
+            When you select a square, it will turn red.<br>
+            Your task is to select the squares alternating in order of numbers and letter as quickly as possible without making errors. <br><br>
+            Click on the square to select the appropriate squares. <br>
+            You will be stopped if you make an error and allowed to try a new box. <br><br>
+          </div>
+          `
+        pageFour = `
+          <div style="font-size:20px;">
+            Remember, it is important to move as quickly and accurately as possible.<br>
+            Press "Next" to start the trial.<br><br>
+            </div>
+            `
+        return [pageOne, pageTwo, pageThree, pageFour]
       },
       allow_backward: false,
       button_label_next: "Next",
@@ -125,7 +179,9 @@
     var feedback = {
       type: 'instructions',
       pages: function(){
-        pageOne = `<div style='font-size:20px;'><b>You took ${rtSeconds} seconds to complete the task.</b><br><br>`
+        pageOne = `<div style='font-size:20px;'>
+          <b>You took ${rtSeconds} seconds to complete the task.</b>
+          <br><br>`
         return [pageOne]
       },
       allow_backward: false,
@@ -140,7 +196,11 @@
     var conclusion = {
       type: 'html-keyboard-response',
       stimulus: function(){
-        return '<div style="font-size:20px;">This task is over.<br><br>Thank you for your participation in this task. <br><br></div>'
+        return `<div style="font-size:20px;">
+          This task is over.<br><br>
+          Thank you for your participation in this task. <br><br>
+          </div>
+          `
       },
       choices: jsPsych.NO_KEYS
     }
