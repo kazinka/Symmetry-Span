@@ -146,7 +146,7 @@ jsPsych.plugins["trails"] = (function() {
       </div>
       <div 
         id="jspsych-html-button-response-btngroup" 
-        style= "position: relative; width: ${paper_size}px; height: ${paper_size}px;"
+        style= "position: relative; width: ${paper_size}px; height: ${paper_size}px; margin-left: 10px"
       />
     `
 
