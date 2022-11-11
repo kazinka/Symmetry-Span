@@ -40,11 +40,11 @@
 
     //----------------------------------------------------------------------
 
-    var grid = 4;
+    var gridSize = 4;
     var matrix = [];
-    for (var i=0; i<grid; i++){
+    for (var i=0; i<gridSize; i++){
       m1 = i;
-      for (var h=0; h<grid; h++){
+      for (var h=0; h<gridSize; h++){
         m2 = h;
         matrix.push([m1,m2])
       }
@@ -140,7 +140,7 @@
     var test_stimuli_A = {
       type: 'trails',
       grid_size: function(){
-        return grid
+        return gridSize
       },
       correct_order: () => correctOrderA,
       random_order: () => jsPsych.randomization.sampleWithoutReplacement(correctOrderA, correctOrderA.length),
@@ -163,7 +163,7 @@
     var test_stimuli_B = {
       type: 'trails',
       grid_size: function(){
-        return grid
+        return gridSize
       },
       correct_order: () => correctOrderB,
       random_order: () => jsPsych.randomization.sampleWithoutReplacement(correctOrderB, correctOrderB.length),
