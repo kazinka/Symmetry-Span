@@ -32,7 +32,7 @@
       repSet = 1 // number of times each set size should be repeated
       //randomize = true // present different set sizes in random order. if false, set sizes will be presented in ascending order
       file_name = null // file name for data file. if null, a default name consisting of the participant ID and a unique number is chosen.
-      local = false // save the data file locally.
+      local = true // save the data file locally.
                   // If this test is being run online (e.g., on MTurk), true will cause the file to be downloaded to the participant's computer.
                   // If this test is on a server, and you wish to save the data file to that server, change this to false.
                   // If changed to false, ensure that the php file (its in the directory!) and the empty "data" folder has also been appropriately uploaded to the server.
@@ -144,6 +144,7 @@
       },
       correct_order: () => correctOrderA,
       random_order: () => jsPsych.randomization.sampleWithoutReplacement(correctOrderA, correctOrderA.length),
+      trails_type: () => "A",
       on_finish: function(){
         const [trial_data] = jsPsych.data.get().last(1).values();
         const { rt } = trial_data;
@@ -166,6 +167,7 @@
       },
       correct_order: () => correctOrderB,
       random_order: () => jsPsych.randomization.sampleWithoutReplacement(correctOrderB, correctOrderB.length),
+      trails_type: () => "B",
       on_finish: function(){
         const [trial_data] = jsPsych.data.get().last(1).values();
         const { rt } = trial_data;
@@ -229,7 +231,7 @@
       stimulus: " ",
       trial_duration: 100,
       on_finish: function(data) {
-        var data = jsPsych.data.get().filter([{trial_type:'spatial-span-recall'}]);
+        var data = jsPsych.data.get().filter([{trial_type:'trails'}]);
         if (file_name == null){
           file_name = "Grid_trails_AB_"+partN+"_"+IDsub.toString()+".csv"}
         else{

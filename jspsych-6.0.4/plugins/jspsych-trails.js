@@ -41,6 +41,11 @@ jsPsych.plugins["trails"] = (function() {
           type:jsPsych.plugins.parameterType.INT,
           default: [],
           description: 'Record the randomized array'
+        },
+        trails_type: {
+          type:jsPsych.plugins.parameterType.INT,
+          default: [],
+          description: 'Record the trial type A or B'
         }
       }
     }
@@ -50,7 +55,7 @@ jsPsych.plugins["trails"] = (function() {
   
   // making matrix:
   var grid = trial.grid_size;
-  var recalledGrid = [];
+  var selectedGrid = [];
   var correctGrid = trial.correct_order
   var nRecalled = 0
   var nothing = " "
@@ -59,7 +64,12 @@ jsPsych.plugins["trails"] = (function() {
   // check and record responses:
   var divArray = []
   var ttArray = []
-  var mistakes = []
+  //var mistakes = []
+  var missBoxValue = []
+  var missExpectedValue = []
+  var missGridIndex = []
+  var missExpectedGridIndex = []
+  var missDistance = []
 
   function indexToCoordinates(index) {
     var x = index % grid;
@@ -85,26 +95,32 @@ jsPsych.plugins["trails"] = (function() {
       nRecalled += 1
       var tt = `#${div.getAttribute('id')}`
       display_element.querySelector(tt).className += '-responded';
-      recalledGrid.push(boxValue);
-      console.log(recalledGrid)
+      selectedGrid.push(boxValue);
+      console.log(selectedGrid)
       ttArray.push(tt)
       divArray.push(div)
       document.getElementById("message-box").innerText=''
       if (nRecalled === trial.correct_order.length) {
         console.log('Last Box!')
-        console.dir(mistakes)
+        console.dir(missBoxValue)
         //end the trial
         after_response()
       } 
     } else {
       //collect information on mistakes made
-      mistakes.push({
-        boxValue,
-        expectedValue,
-        gridIndex,
-        expectedGridIndex,
-        distance,
-      })
+      // mistakes.push({
+      //   boxValue,
+      //   expectedValue,
+      //   gridIndex,
+      //   expectedGridIndex,
+      //   distance,
+      // })
+
+        missBoxValue.push(boxValue)
+        missExpectedValue.push(expectedValue)
+        missGridIndex.push(gridIndex)
+        missExpectedGridIndex.push(expectedGridIndex)
+        missDistance.push(distance)
       //send message that they have made a mistake and what number they were on
       const preamble = 'Wrong choice,';
       const suggestion = nRecalled === 0 ?
@@ -204,7 +220,13 @@ jsPsych.plugins["trails"] = (function() {
     var trial_data = {
       rt,
       randomOrder: trial.random_order,
-      mistakes,
+      missBoxValue,
+      missExpectedValue,
+      missGridIndex,
+      missExpectedGridIndex,
+      missDistance,
+      gridSize: trial.grid_size,
+      trailsType: trial.trails_type
     }
   
     // move on to the next trial
