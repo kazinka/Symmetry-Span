@@ -93,9 +93,8 @@ jsPsych.plugins["trails"] = (function() {
       if (nRecalled === trial.correct_order.length) {
         console.log('Last Box!')
         console.dir(mistakes)
-        //record the end of the time
+        //end the trial
         after_response()
-        //end the trial without button?
       } 
     } else {
       //collect information on mistakes made
@@ -169,10 +168,6 @@ jsPsych.plugins["trails"] = (function() {
       after_response();
   });
   
-  // function checkResponse(){
-  //
-  // }
-  //
   function after_response() {
     // measure rt
     var end_time = Date.now();
