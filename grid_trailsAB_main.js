@@ -15,7 +15,7 @@
     repSet = 1 // number of times each set size should be repeated
     //randomize = true // present different set sizes in random order. if false, set sizes will be presented in ascending order
     file_name = null // file name for data file. if null, a default name consisting of the participant ID and a unique number is chosen.
-    local = true // save the data file locally.
+    local = false // save the data file locally.
                 // If this test is being run online (e.g., on MTurk), true will cause the file to be downloaded to the participant's computer.
                 // If this test is on a server, and you wish to save the data file to that server, change this to false.
                 // If changed to false, ensure that the php file (its in the directory!) and the empty "data" folder has also been appropriately uploaded to the server.
@@ -201,34 +201,34 @@
     }
   }
 
-  function saveData(filename, filedata){
-    $.ajax({
-      type:'post',
-      cache: false,
-      url: 'save_data.php', // this is the path to the above PHP script
-      data: {filename: filename, filedata: filedata}
-    });
-  };
+  // function saveData(filename, filedata){
+  //   $.ajax({
+  //     type:'post',
+  //     cache: false,
+  //     url: 'save_data.php', // this is the path to the above PHP script
+  //     data: {filename: filename, filedata: filedata}
+  //   });
+  // };
 
   var IDsub = Date.now()
-  var dataLog = {
-    type: 'html-keyboard-response',
-    stimulus: " ",
-    trial_duration: 100,
-    on_finish: function(data) {
-      var data = jsPsych.data.get().filter([{trial_type:'trails'}]);
-      if (file_name == null){
-        file_name = "Grid_trails_AB_"+partN+"_"+IDsub.toString()+".csv"}
-      else{
-        file_name += ".csv"
-      }
-      if (local){
-        data.localSave('csv', file_name )
-      } else {
-        saveData(file_name, data.csv());
-      }
-    }
-  }
+  // var dataLog = {
+  //   type: 'html-keyboard-response',
+  //   stimulus: " ",
+  //   trial_duration: 100,
+  //   on_finish: function(data) {
+  //     var data = jsPsych.data.get().filter([{trial_type:'trails'}]);
+  //     if (file_name == null){
+  //       file_name = "Grid_trails_AB_"+partN+"_"+IDsub.toString()+".csv"}
+  //     else{
+  //       file_name += ".csv"
+  //     }
+  //     if (local){
+  //       data.localSave('csv', file_name )
+  //     } else {
+  //       saveData(file_name, data.csv());
+  //     }
+  //   }
+  // }
 
   var trailsA_Test = {
     timeline: [test_stimuli_A, feedback],
@@ -250,5 +250,5 @@
     type: 'fullscreen',
     fullscreen_mode: false
   });
-  timeline.push(dataLog)
+ // timeline.push(dataLog)
   timeline.push(conclusion)
