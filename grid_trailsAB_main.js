@@ -24,7 +24,7 @@
   //----------------------------------------------------------------------
   
   // define the site that hosts stimuli images
-  var repo_site = "https://pages.github.umn.edu/kazin003/Symmetry-Span/"
+  var repo_site = "https://kazinka.github.io/Symmetry-Span/"
   var gridSize = 4;
   var matrix = [];
   for (var i=0; i<gridSize; i++){

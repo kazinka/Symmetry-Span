@@ -5,7 +5,7 @@ var qthis = this;
 // Hide buttons
 qthis.hideNextButton();
 
-var task_github = "https://pages.github.umn.edu/kazin003/Symmetry-Span/"; // https://<your-github-username>.github.io/<your-experiment-name>
+var task_github = "https://kazinka.github.io/Symmetry-Span/"; // https://<your-github-username>.github.io/<your-experiment-name>
 
 // requiredResources must include all the JS files that .html uses.
 var requiredResources = [
