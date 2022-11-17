@@ -15,8 +15,8 @@ var requiredResources = [
     task_github + "jspsych-6.0.4/plugins/jspsych-instructions.js",
     task_github + "jspsych-6.0.4/plugins/jspsych-fullscreen.js",
     task_github + "jspsych-6.0.4/plugins/jspsych-trails.js",
-    task_github + "https://cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js",
-    task_github + "https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js",
+    "https://cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js",
+    "https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js",
     task_github + "grid_trailsAB_main.js"
 ];
 

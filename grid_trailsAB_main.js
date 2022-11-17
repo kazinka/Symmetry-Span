@@ -180,17 +180,17 @@
   }
 
 
-  var conclusion = {
-    type: 'html-keyboard-response',
-    stimulus: function(){
-      return `<div style="font-size:20px;">
-        This task is over.<br><br>
-        Thank you for your participation in this task. <br><br>
-        </div>
-        `
-    },
-    choices: jsPsych.NO_KEYS
-  }
+  // var conclusion = {
+  //   type: 'html-keyboard-response',
+  //   stimulus: function(){
+  //     return `<div style="font-size:20px;">
+  //       This task is over.<br><br>
+  //       Thank you for your participation in this task. <br><br>
+  //       </div>
+  //       `
+  //   },
+  //   choices: jsPsych.NO_KEYS
+  // }
 
   var p_details = {
     type:"survey-text",
@@ -250,5 +250,5 @@
     type: 'fullscreen',
     fullscreen_mode: false
   });
- // timeline.push(dataLog)
-  timeline.push(conclusion)
+// timeline.push(dataLog)
+//timeline.push(conclusion)
