@@ -51,8 +51,14 @@ function initExp(){
             // summarize the results
             var data = jsPsych.data.get().filter([{trial_type:'trails'}]);
 
+            var rt = data.select('rt');
+            var missBoxValue = data.select('missBoxValue');
+            var missDistanceMean = data.select('missDistance').mean();
+
             // save to qualtrics embedded data
-            Qualtrics.SurveyEngine.setEmbeddedData("data", data);
+            Qualtrics.SurveyEngine.setEmbeddedData("rt", rt);
+            Qualtrics.SurveyEngine.setEmbeddedData("missBoxValue", missBoxValue);
+            Qualtrics.SurveyEngine.setEmbeddedData("missDistanceMean", missDistanceMean);
             /* Change 6: Adding the clean up and continue functions.*/
             // clear the stage
             jQuery('#display_stage').remove();
