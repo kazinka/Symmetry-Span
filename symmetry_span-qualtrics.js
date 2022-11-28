@@ -10,7 +10,7 @@ var task_github = "https://kazinka.github.io/Symmetry-Span/"; // https://<your-g
 var requiredResources = [
     task_github + "jspsych-6.0.4/jspsych.js",
     task_github + "jspsych-6.0.4/plugins/jspsych-html-keyboard-response.js",
-    task_github + "jspsych-6.0.4/plugins/jspsych-symmetry-judgement-task.js",
+    task_github + "jspsych-6.0.4/plugins/jspsych-symmetry-judgement-task-qualtrics.js",
     task_github + "jspsych-6.0.4/plugins/jspsych-survey-text.js",
     task_github + "jspsych-6.0.4/plugins/jspsych-instructions.js",
     task_github + "jspsych-6.0.4/plugins/jspsych-fullscreen.js",
