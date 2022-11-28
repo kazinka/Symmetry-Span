@@ -34,12 +34,12 @@ jsPsych.plugins["trails"] = (function() {
       },
       correct_order: {
         type:jsPsych.plugins.parameterType.INT,
-        default: [],
+        default: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
         description: 'Record the correct array'
       },
       random_order: {
         type:jsPsych.plugins.parameterType.INT,
-        default: [],
+        default: [1, 15, 7, 3, 13, 9, 11, 5, 14, 2, 10, 8, 16, 4, 6, 12],
         description: 'Record the randomized array'
       },
       trails_type: {
