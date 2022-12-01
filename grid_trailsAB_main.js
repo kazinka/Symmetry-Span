@@ -121,7 +121,7 @@
   }
 
   let rtSeconds;
-  const correctOrderA = Array.from({length: 16}, (_, i) => i + 1);
+  const correctOrderA = Array.from({length: 16}).map((_, i) => i + 1);
   var test_stimuli_A = {
     type: 'trails',
     grid_size: function(){
@@ -140,7 +140,7 @@
     }
   }
 
-  const correctOrderB = Array.from({length: 16}, (_, i) => {
+  const correctOrderB = Array.from({length: 16}).map ((_, i) => {
     const halfIndex = Math.floor(i/2);
     return i % 2 ? String.fromCharCode(halfIndex+65) : halfIndex + 1 
     })
