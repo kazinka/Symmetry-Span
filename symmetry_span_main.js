@@ -376,15 +376,15 @@
   //   choices: jsPsych.NO_KEYS
   // }
 
-  var p_details = {
-    type:"survey-text",
-    questions: [{prompt: "Enter subject number"}],
-    on_finish:function(){
-      partN = jsPsych.data.get().last(1).values()[0].partNum
-      partN = partN.replace(/['"]+/g,'')
-      //console.log(partN[0])
-    }
-  }
+  // var p_details = {
+  //   type:"survey-text",
+  //   questions: [{prompt: "Enter subject number"}],
+  //   on_finish:function(){
+  //     partN = jsPsych.data.get().last(1).values()[0].partNum
+  //     partN = partN.replace(/['"]+/g,'')
+  //     //console.log(partN[0])
+  //   }
+  // }
 
   // function saveData(filename, filedata){
   //   $.ajax({
@@ -445,7 +445,7 @@
     repetitions: nfullDemo
   }
 
-  timeline = [p_details]
+  timeline = []
   timeline.push({
     type: 'fullscreen',
     fullscreen_mode: true
