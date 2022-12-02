@@ -149,7 +149,7 @@ jsPsych.plugins["spatial-span-recall"] = (function() {
     display_element.innerHTML += `
       <div 
         class="jspsych-btn-numpad" 
-        style="display: inline-block; margin-top:${30}; margin-right:${15}" 
+        style="display: inline-block; margin-top:${30}px; margin-right:${10}px" 
         id="jspsych-html-button-response-button-clear" 
         onclick="clearSpace(this)"
       >
@@ -160,7 +160,7 @@ jsPsych.plugins["spatial-span-recall"] = (function() {
     display_element.innerHTML += `
       <div 
         class="jspsych-btn-numpad" 
-        style="display: inline-block; margin-top:${30}; margin-left: ${15}" 
+        style="display: inline-block; margin-top:${30}px; margin-left: ${10}px" 
         id="jspsych-html-button-response-button"
       >
         Continue
