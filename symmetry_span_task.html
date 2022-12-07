@@ -78,6 +78,27 @@
     var nSymmetryAcc = 0 //feedback
     var nSquaresRecalled = 0 //feedback
 
+    var pre_if_trial = {
+      type: ["html-keyboard-response"],
+      stimulus: 'We will now go through the task instructions. Press S to skip it, or V to view it.',
+      choices: jsPsych.ALL_KEYS,//["read instructions", "skip instructions"],
+      response_ends_trial: true
+    }
+
+    var if_node = {
+      timeline: [fullInstructions],
+      conditional_function: function(){
+        // get the data from the previous trial,
+        // and check which key was pressed
+        var data = jsPsych.data.get().last(1).values()[0];
+        if(jsPsych.pluginAPI.compareKeys(data.response, 's')){
+            return false;
+        } else {
+            return true;
+        }
+      }
+    }
+
     var instructions = {
         type: 'instructions',
         pages: function(){
@@ -89,7 +110,7 @@
         },
         allow_backward: false,
         button_label_next: "Next",
-        show_clickable_nav: true
+        show_clickable_nav: true,
       }
 
       var instructions2 = {
@@ -317,19 +338,27 @@
       repetitions: nfullDemo
     }
 
+    var fullInstructions ={
+      timeline: [instructions, squaresDemo, instructions2, symmetryDemo, instructions3, fullDemo],
+      repetitions: 1
+    }
+
     timeline = [p_details]
     timeline.push({
       type: 'fullscreen',
       fullscreen_mode: true
     });
+    timeline.push(pre_if_trial)
 
-    timeline = timeline.concat([instructions, squaresDemo, instructions2, symmetryDemo, instructions3, fullDemo, instructions4, test_procedure])
+    //timeline.push(if_node)// gets activated at the end of timeline... so how to organize timeline?
+
+    timeline = timeline.concat([instructions4, test_procedure])
     
     timeline.push({
       type: 'fullscreen',
       fullscreen_mode: false
     });
-
+   
     timeline.push(dataLog)
     timeline.push(conclusion)
 
