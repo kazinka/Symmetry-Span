@@ -54,7 +54,7 @@
 }
 
 @media (min-width: 1001px) {
-  p, .responsive-text { font-size: 1.75rem; }
+  p, .responsive-text { font-size: 1.75rem; line-height:2rem; }
 }
 
 .jspsych-display-element {

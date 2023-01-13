@@ -67,7 +67,7 @@
       pages: function(){
         pageOne = `
         <div 
-            style="font-size:20px;"
+          class="responsive-text"
         >
             <b>INSTRUCTIONS</b>
             <br><br><br>
@@ -83,7 +83,7 @@
         `
         pageTwo = `
         <div 
-            style="font-size:20px;"
+          class="responsive-text"
         >
             We will first practice SQUARE MEMORIZATION.
             <br><br>
@@ -97,13 +97,13 @@
             <br><br> 
             <img 
                 src="${repo_site}img/symmetrySpanExampleGrid.png" 
-                style="height:300px; width:400px">
+                style="height:auto; max-width:90%; max-height:400px">
             </img>
         </div>
         `
         pageThree = `
         <div 
-            style="font-size:20px;"
+          class="responsive-text"
         >
             After this, you will be shown an empty grid.
             <br>
@@ -117,7 +117,7 @@
         `
         pageFour = `
         <div 
-            style="font-size:20px;"
+          class="responsive-text"
         >
             Remember, it is important that you select the squares in the order that you saw them.
             <br> 
@@ -139,19 +139,19 @@
       pages: function(){
         pageOne = `
         <div 
-            style="font-size:20px;"
+          class="responsive-text"
         >
             We will now practice SYMMETRY JUDGEMENTS.
             <br><br>
-            A black and white picture will appear on the screen and you have to judge if the picture is symmetrical or asymetrical.
+            A black and white picture will appear on the screen and you have to judge if the picture is symmetrical or asymmetrical.
             <br>
             A picture is symmetrical if its left half is identical to the right half when flipped.
             <br>
-            Below are examples of symmetrical and asymetrical pictures:
+            Below are examples of symmetrical and asymmetrical pictures:
             <br> 
             <img 
                 src="${repo_site}img/symm_instructions.png" 
-                style="height:264px; width:400px">
+                style="height:auto; max-width:90%; max-height:400px">
             </img>
             <br><br>
             Press "Next" to start practicing symmetry judgements.
@@ -169,7 +169,7 @@
     pages: function(){
       pageOne = `
       <div 
-        style="font-size:20px;"
+        class="responsive-text"
       >
         We will now practice the two tasks together.
         <br><br>
@@ -187,7 +187,7 @@
       `
       pageTwo = `
       <div 
-        style="font-size:20px;"
+        class="responsive-text"
       >
         After the symmetry judgement, you will be shown another colored square to remember,
         <br>
@@ -215,7 +215,7 @@
     pages: function(){
       pageOne = `
       <div 
-        style="font-size:20px;"
+        class="responsive-text"
       >
         We have finished with the practice trials.
         <br><br>
@@ -316,7 +316,7 @@
     type: 'instructions',
     pages: function(){
       pageOne = `
-      <div style='font-size:20px;'>
+      <div   class="responsive-text">
         <b>
             You recalled 
             <font color='blue'>
