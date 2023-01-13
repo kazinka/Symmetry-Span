@@ -104,7 +104,7 @@
         type: 'instructions',
         pages: function(){
           pageOne = '<div class="responsive-text"><b>INSTRUCTIONS</b><br><br><br>This is the symmetry span task. <br><br>This task has two parts: <br>(1) Square memorization <br>(2) Symmetry judgement<br><br><br></div>'
-          pageTwo = '<div class="responsive-text">We will first practice SQUARE MEMORIZATION.<br><br>You will see a grid of squares on the screen.<br>Several squares will turn red one at a time (around 3 to 6 in a trial).<br>Try to remember which squares turned red and the order in which they turned red.<br><br>Below is an example of the grid with one square colored red. <br><br> <img src="img/symmetrySpanExampleGrid.png" style="height:300px; width:400px"></img></div>'
+          pageTwo = '<div class="responsive-text">We will first practice SQUARE MEMORIZATION.<br><br>You will see a grid of squares on the screen.<br>Several squares will turn red one at a time (around 3 to 6 in a trial).<br>Try to remember which squares turned red and the order in which they turned red.<br><br>Below is an example of the grid with one square colored red. <br><br> <img src="img/symmetrySpanExampleGrid.png" style="height:auto; max-width:90%; max-height:400px"></img></div>'
           pageThree = '<div class="responsive-text">After this, you will be shown an empty grid.<br>Your task is to select the squares that turned red in their correct presentation order. <br><br>Click on the square to select the appropriate squares. <br>If you make a mistake use the provided "Backspace" button to clear your last response. <br><br></div>'
           pageFour = '<div class="responsive-text">Remember, it is important that you select the squares in the order that you saw them.<br> So if you forget one of the squares, guess the best you can for that one, and select the rest in their correct order.<br><br>Press "Next" for practice trials.<br><br></div>'
           return [pageOne, pageTwo, pageThree, pageFour]
@@ -117,7 +117,7 @@
       var instructions2 = {
         type: 'instructions',
         pages: function(){
-          pageOne = '<div class="responsive-text">We will now practice SYMMETRY JUDGEMENTS.<br><br>A black and white picture will appear on the screen and you have to judge if the picture is symmetrical or asymetrical.<br>A picture is symmetrical if its left half is identical to the right half when flipped.<br>Below are examples of symmetrical and asymetrical pictures:<br> <img src="img/symm_instructions.png" style="height:264px; width:400px"></img><br><br>Press "Next" to start practicing symmetry judgements.</div>'
+          pageOne = '<div class="responsive-text">We will now practice SYMMETRY JUDGEMENTS.<br><br>A black and white picture will appear on the screen and you have to judge if the picture is symmetrical or asymmetrical.<br>A picture is symmetrical if its left half is identical to the right half when flipped.<br>Below are examples of symmetrical and asymmetrical pictures:<br> <img src="img/symm_instructions.png" style="height:auto; max-width:90%; max-height:400px"></img><br><br>Press "Next" to start practicing symmetry judgements.</div>'
           return [pageOne]
         },
         allow_backward: false,
