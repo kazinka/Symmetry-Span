@@ -41,7 +41,7 @@
     type: 'instructions',
     pages: function(){
       pageOne = `
-        <div style="font-size:20px;">
+        <div class="responsive-text">
           <b>INSTRUCTIONS</b>
           <br><br><br>
           This is the Grid Trails task. <br><br>
@@ -52,18 +52,18 @@
         </div>
         `
       pageTwo = `
-        <div style="font-size:20px;">
+        <div class="responsive-text">
           We will first use NUMBERS.
           <br><br>
           You will see a grid of squares on the screen.<br>
           Each square will contain a number.<br>
           You will need to select each box in numerical order as quickly as possible (start at 1, then go to 2, then go to 3, and so on).<br><br>
           Below is an example of the grid with numbers. <br><br> 
-          <img src="${repo_site}img/GridTrailsA_sample.gif" ></img>
+          <img src="${repo_site}img/GridTrailsA_sample.gif" style="height:auto; max-width:75%"></img>
         </div>
         `
       pageThree = `
-        <div style="font-size:20px;">
+        <div class="responsive-text">
           When you select a number, it will turn red.<br>
           Your task is to select the squares in numerical order as quickly as possible without making errors. <br><br>
           Click on the square to select the appropriate squares. <br>
@@ -71,7 +71,7 @@
         </div>
         `
       pageFour = `
-        <div style="font-size:20px;">
+        <div class="responsive-text">
           Remember, it is important to move as quickly and accurately as possible.<br>
           Press "Next" to start the trial.<br><br>
         </div>`
@@ -86,21 +86,21 @@
     type: 'instructions',
     pages: function(){
       pageOne = `
-        <div style="font-size:20px;">
+        <div class="responsive-text">
           We will now use NUMBERS and LETTERS.<br><br>
           You will see the same grid of squares on the screen.<br>
           This time, each square will contain either a number or a letter.<br>
         </div>
         `
       pageTwo = `
-      <div style="font-size:20px;">
+      <div class="responsive-text">
         You will select each box alternating in order between the numbers and letters (Start at 1, then go to the first letter A, then go to the next number 2, and then the next letter B, and so on). <br><br>
         Below is an example of the grid with numbers and letters. <br> 
-        <img src="${repo_site}img/GridTrailsB_sample.gif" style="height:300px; width:300px"></img>
+        <img src="${repo_site}img/GridTrailsB_sample.gif" style="height:auto; max-width:75%"></img>
       </div>
       `
       pageThree = `
-        <div style="font-size:20px;">
+        <div class="responsive-text">
           When you select a square, it will turn red.<br>
           Your task is to select the squares alternating in order of numbers and letter as quickly as possible without making errors. <br><br>
           Click on the square to select the appropriate squares. <br>
@@ -108,7 +108,7 @@
         </div>
         `
       pageFour = `
-        <div style="font-size:20px;">
+        <div class="responsive-text">
           Remember, it is important to move as quickly and accurately as possible.<br>
           Press "Next" to start the trial.<br><br>
           </div>
@@ -166,7 +166,7 @@
   var feedback = {
     type: 'instructions',
     pages: function(){
-      pageOne = `<div style='font-size:20px;'>
+      pageOne = `<div class="responsive-text">
         <b>You took ${rtSeconds} seconds to complete the task.</b>
         <br><br>`
       return [pageOne]
