@@ -140,7 +140,7 @@ jsPsych.plugins["trails"] = (function() {
     paper_size = gridSize*trial.size_cells;
   
     display_element.innerHTML = `
-      <div style="font-size:24">
+      <div style="font-size: 24px">
         GO!
         <div id="message-box" style="font-size: 18px; color: firebrick; min-height: 60px; margin: 10px;" />
       </div>
