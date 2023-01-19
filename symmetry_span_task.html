@@ -87,7 +87,7 @@
     }
 
     var if_node = {
-      timeline: [fullInstructions],
+      timeline: [instructions],
       conditional_function: function(){
         // get the data from the previous trial,
         // and check which key was pressed
@@ -344,6 +344,10 @@
       repetitions: 1
     }
 
+    var shortTest={
+      timeline: [instructions4, test_procedure]
+    }
+
     timeline = [p_details]
     timeline.push({
       type: 'fullscreen',
@@ -351,8 +355,7 @@
     });
     timeline.push(pre_if_trial)
 
-    //timeline.push(if_node)// gets activated at the end of timeline... so how to organize timeline?
-
+    timeline.push(if_node)
     timeline = timeline.concat([instructions4, test_procedure])
     
     timeline.push({
