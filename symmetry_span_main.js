@@ -81,9 +81,6 @@
         type: 'fullscreen',
         fullscreen_mode: false
       }, function() {});
-   
-      jsPsych.addNodeToEndOfTimeline(dataLog, function() {})
-      jsPsych.addNodeToEndOfTimeline(conclusion, function() {})
     }
   };
   var instructions = {
