@@ -83,22 +83,27 @@
       type: ["html-keyboard-response"],
       stimulus: 'We will now go through the task instructions. Press S to skip it, or V to view it.',
       choices: jsPsych.ALL_KEYS,//["read instructions", "skip instructions"],
-      response_ends_trial: true
-    }
-
-    var if_node = {
-      timeline: [instructions],
-      conditional_function: function(){
-        // get the data from the previous trial,
-        // and check which key was pressed
+      response_ends_trial: true,
+      on_finish: function(){
         var data = jsPsych.data.get().last(1).values()[0];
-        if(jsPsych.pluginAPI.compareKeys(data.response, 's')){
-            return false;
-        } else {
-            return true;
+        if(jsPsych.pluginAPI.compareKeys(data.key_press, 83)){
+          console.log("skipped instructions")
+        } else if (jsPsych.pluginAPI.compareKeys(data.key_press, 86)){
+          console.log("read instructions")
+          jsPsych.addNodeToEndOfTimeline({ timeline: [instructions, squaresDemo, instructions2, symmetryDemo, instructions3, fullDemo]}, function() {});
         }
+        jsPsych.addNodeToEndOfTimeline(instructions4, function() {});
+        jsPsych.addNodeToEndOfTimeline(test_procedure, function() {});
+        jsPsych.addNodeToEndOfTimeline({
+          type: 'fullscreen',
+          fullscreen_mode: false
+        }, function() {});
+     
+        jsPsych.addNodeToEndOfTimeline(dataLog, function() {})
+        jsPsych.addNodeToEndOfTimeline(conclusion, function() {})
       }
-    }
+    };
+
 
     var instructions = {
         type: 'instructions',
@@ -339,15 +344,6 @@
       repetitions: nfullDemo
     }
 
-    var fullInstructions ={
-      timeline: [instructions, squaresDemo, instructions2, symmetryDemo, instructions3, fullDemo],
-      repetitions: 1
-    }
-
-    var shortTest={
-      timeline: [instructions4, test_procedure]
-    }
-
     timeline = [p_details]
     timeline.push({
       type: 'fullscreen',
@@ -355,16 +351,6 @@
     });
     timeline.push(pre_if_trial)
 
-    timeline.push(if_node)
-    timeline = timeline.concat([instructions4, test_procedure])
-    
-    timeline.push({
-      type: 'fullscreen',
-      fullscreen_mode: false
-    });
-   
-    timeline.push(dataLog)
-    timeline.push(conclusion)
 
     jsPsych.init({
       timeline: timeline,
