@@ -47,8 +47,8 @@
   if (randomize){
     setSizes = jsPsych.randomization.sampleWithoutReplacement(setSizes, nTrials)} // shuffle through the set sizes
 
-  var squaregridDemoArray = [3,4,4]
-  var fullDemoArray = [3,3,4]
+  var squaregridDemoArray = [3,4]
+  var fullDemoArray = [3,4]
   var nPracticeTrials = squaregridDemoArray.length //number of practice trials for square memorization
   var nfullDemo = fullDemoArray.length
 
@@ -458,7 +458,7 @@
 
   var symmetryDemo = {
     timeline: [cog_load_demo, feedbackSymm],
-    repetitions: 5
+    repetitions: 3
   }
 
   var fullDemo = {
