@@ -51,6 +51,7 @@
   var fullDemoArray = [3,4]
   var nPracticeTrials = squaregridDemoArray.length //number of practice trials for square memorization
   var nfullDemo = fullDemoArray.length
+  let nPreTrials = nPracticeTrials + nfullDemo
 
   var setSizes = squaregridDemoArray.concat(fullDemoArray, setSizes)
   var totalTrials = setSizes.length //total number of trials in the entire task
@@ -71,6 +72,7 @@
       var data = jsPsych.data.get().last(1).values()[0];
       if(jsPsych.pluginAPI.compareKeys(data.accuracy, '1')){
         console.log("skipped instructions")
+        n+=nPreTrials
       } else if (jsPsych.pluginAPI.compareKeys(data.accuracy, '0')){
         console.log("read instructions")
         jsPsych.addNodeToEndOfTimeline({ timeline: [instructions, squaresDemo, instructions2, symmetryDemo, instructions3, fullDemo]}, function() {});
@@ -351,16 +353,26 @@
       `
       if (n>nPracticeTrials){
         pageOne+= `
-            You made 
-            <font color='blue'>
-                ${nSymmetryAcc} 
-                out of 
-                ${nSquares}
-            </font> 
-            accurate symmetry judgement(s).
-            <br><br>
-      </div>
-      `
+          You made 
+          <font color='blue'>
+              ${nSymmetryAcc} 
+              out of 
+              ${nSquares}
+          </font> 
+          accurate symmetry judgement(s).
+          <br><br>
+        `
+      if (n>nPreTrials){
+        let nTest = n - nPreTrials
+        pageOne+= `
+          Completed 
+          ${nTest} 
+          out of 
+          ${nTrials} 
+          trials. 
+          </div>
+        `
+      }
       }
       return [pageOne]
     },
