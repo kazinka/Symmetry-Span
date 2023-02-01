@@ -164,15 +164,15 @@ jsPsych.plugins["trails"] = (function() {
         </div>
       `;
     }
-    display_element.innerHTML += `
-      <div 
-        class="jspsych-btn-numpad" 
-        style="display: inline-block; margin: ${30}px ${30}px;" 
-        id="jspsych-html-button-response-button"
-      >
-        Done
-      </div>
-    `;
+    // display_element.innerHTML += `
+    //   <div 
+    //     class="jspsych-btn-numpad" 
+    //     style="display: inline-block; margin: ${30}px ${30}px;" 
+    //     id="jspsych-html-button-response-button"
+    //   >
+    //     Done
+    //   </div>
+    // `;
 
     var startTime = Date.now();
     
