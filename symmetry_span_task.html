@@ -93,7 +93,7 @@
           n+=nPreTrials
         } else if (jsPsych.pluginAPI.compareKeys(data.accuracy, '0')){
           console.log("read instructions")
-          jsPsych.addNodeToEndOfTimeline({ timeline: [instructions, squaresDemo, instructions2, symmetryDemo, instructions3, fullDemo]}, function() {});
+          jsPsych.addNodeToEndOfTimeline({ timeline: [instructions, squaresDemo, instructions2, fullDemo]}, function() {});
         }
         jsPsych.addNodeToEndOfTimeline(instructions4, function() {});
         jsPsych.addNodeToEndOfTimeline(test_procedure, function() {});
@@ -125,7 +125,7 @@
       var instructions2 = {
         type: 'instructions',
         pages: function(){
-          pageOne = '<div class="responsive-text">We will now practice SYMMETRY JUDGEMENTS.<br><br>A black and white picture will appear on the screen and you have to judge if the picture is symmetrical or asymmetrical.<br>A picture is symmetrical if its left half is identical to the right half when flipped.<br>Below are examples of symmetrical and asymmetrical pictures:<br> <img src="img/symm_instructions.png" style="height:auto; max-width:90%; max-height:400px"></img><br><br>Press "Next" to start practicing symmetry judgements.</div>'
+          pageOne = '<div class="responsive-text">We will now practice SYMMETRY JUDGEMENTS.<br><br>A black and white picture will appear on the screen briefly. You do not need to respond. <br><br>Below are examples of symmetrical and asymmetrical pictures:<br> <img src="img/symm_instructions.png" style="height:auto; max-width:90%; max-height:400px"></img><br><br>Press "Next" to start the practice rounds combining the black and white image with the red squares you need to remember.</div>'
           return [pageOne]
         },
         allow_backward: false,
@@ -136,7 +136,7 @@
     var instructions3 = {
       type: 'instructions',
       pages: function(){
-        pageOne = '<div class="responsive-text">We will now practice the two tasks together.<br><br>In the next practice set, you will first be presented with a red colored square.<br>Try and remember the position of that colored square.<br>After the colored square dissapears, you will be asked to make a symmetry judgement of a black and white picture.<br><br>Try making the symmetry judgement as soon as possible.<br>Each symmetry judgement picture will be presented for only 6 seconds.<br><br></div>'
+        pageOne = '<div class="responsive-text">We will now practice the two tasks together.<br><br>In the next practice set, you will first be presented with a red colored square.<br>Try and remember the position of that colored square.<br>After the colored square disappears, you will be asked to make a symmetry judgement of a black and white picture.<br><br>Try making the symmetry judgement as soon as possible.<br>Each symmetry judgement picture will be presented for only 6 seconds.<br><br></div>'
         pageTwo = '<div class="responsive-text">After the symmetry judgement, you will be shown another colored square to remember,<br>which will be followed by another symmetry judgement.<br><br>Therefore, colored square presentations and symmetry judgements will alternate.<br>After 3 to 6 squares have been presented, the recall grid will appear.<br>Use the mouse to select the presented squares in their correct order.<br><br>Press "Next" to start practice rounds.<br><br></div>'
         return [pageOne, pageTwo]
       },
