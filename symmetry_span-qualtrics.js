@@ -51,7 +51,7 @@ function initExp(){
             jsPsych.data.displayData(); // comment out if you do not want to display results at the end of task
             /* Change 5: Summarizing and save the results to Qualtrics */
             // summarize the results
-            var data = jsPsych.data.get().filter([{trial_type:'symmetry-span-recall'}]);
+            var data = jsPsych.data.get().filter([{trial_type:'spatial-span-recall'}]);
 
             // save to qualtrics embedded data
             Qualtrics.SurveyEngine.setEmbeddedData("data", data);
