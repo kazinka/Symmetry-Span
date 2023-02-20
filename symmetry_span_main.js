@@ -75,7 +75,7 @@
         n+=nPreTrials
       } else if (jsPsych.pluginAPI.compareKeys(data.accuracy, '0')){
         console.log("read instructions")
-        jsPsych.addNodeToEndOfTimeline({ timeline: [instructions, squaresDemo, instructions2, symmetryDemo, instructions3, fullDemo]}, function() {});
+        jsPsych.addNodeToEndOfTimeline({ timeline: [instructions, squaresDemo, instructions2, fullDemo]}, function() {});
       }
       jsPsych.addNodeToEndOfTimeline(instructions4, function() {});
       jsPsych.addNodeToEndOfTimeline(test_procedure, function() {});
@@ -100,7 +100,7 @@
             <br>
             (1) Square memorization 
             <br>
-            (2) Symmetry judgement
+            (2) Symmetry images
             <br><br><br>
         </div>
         `
@@ -164,20 +164,19 @@
         <div 
           class="responsive-text"
         >
-            We will now practice SYMMETRY JUDGEMENTS.
+            We will now practice SYMMETRY IMAGES.
             <br><br>
-            A black and white picture will appear on the screen and you have to judge if the picture is symmetrical or asymmetrical.
+            A black and white picture will appear on the screen briefly. You do not need to respond.
             <br>
-            A picture is symmetrical if its left half is identical to the right half when flipped.
             <br>
-            Below are examples of symmetrical and asymmetrical pictures:
+            Below are examples of symmetrical and asymmetrical pictures you will see:
             <br> 
             <img 
                 src="${repo_site}img/symm_instructions.png" 
                 style="height:auto; max-width:90%; max-height:400px">
             </img>
             <br><br>
-            Press "Next" to start practicing symmetry judgements.
+            Press "Next" to start practicing rounds combining the black and white image with the red squares you need to remember.
         </div>
         `
         return [pageOne]
@@ -278,14 +277,14 @@
   var cog_load = {
     type: 'symmetry-judgement-task',
     size: 8, //adjusts the number of blocks in the symmetry grid
-    trial_duration:6000,
+    trial_duration:2000,
     number_darkened: [17, 18, 19], 
     stimulus: "Is this image symmetric?",
     on_finish: function(){
-      var acc = jsPsych.data.get().last(1).values()[0].accuracy;
-      if (acc==1){
-        nSymmetryAcc+=1
-      }
+      // var acc = jsPsych.data.get().last(1).values()[0].accuracy;
+      // if (acc==1){
+      //   nSymmetryAcc+=1
+      // }
     }
   }
 
@@ -352,16 +351,16 @@
         <br><br>
       `
       if (n>nPracticeTrials){
-        pageOne+= `
-          You made 
-          <font color='blue'>
-              ${nSymmetryAcc} 
-              out of 
-              ${nSquares}
-          </font> 
-          accurate symmetry judgement(s).
-          <br><br>
-        `
+        // pageOne+= `
+        //   You made 
+        //   <font color='blue'>
+        //       ${nSymmetryAcc} 
+        //       out of 
+        //       ${nSquares}
+        //   </font> 
+        //   accurate symmetry judgement(s).
+        //   <br><br>
+        // `
       if (n>nPreTrials){
         let nTest = n - nPreTrials
         pageOne+= `
