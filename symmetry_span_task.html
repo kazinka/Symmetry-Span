@@ -111,7 +111,7 @@
     var instructions = {
         type: 'instructions',
         pages: function(){
-          pageOne = '<div class="responsive-text"><b>INSTRUCTIONS</b><br><br><br>This is the symmetry span task. <br><br>This task has two parts: <br>(1) Square memorization <br>(2) Symmetry judgement<br><br><br></div>'
+          pageOne = '<div class="responsive-text"><b>INSTRUCTIONS</b><br><br><br>This is the symmetry span task. <br><br>This task has two parts: <br>(1) Square memorization <br>(2) Symmetry images<br><br><br></div>'
           pageTwo = '<div class="responsive-text">We will first practice SQUARE MEMORIZATION.<br><br>You will see a grid of squares on the screen.<br>Several squares will turn red one at a time (around 3 to 6 in a trial).<br>Try to remember which squares turned red and the order in which they turned red.<br><br>Below is an example of the grid with one square colored red. <br><br> <img src="img/symmetrySpanExampleGrid.png" style="height:auto; max-width:90%; max-height:400px"></img></div>'
           pageThree = '<div class="responsive-text">After this, you will be shown an empty grid.<br>Your task is to select the squares that turned red in their correct presentation order. <br><br>Click on the square to select the appropriate squares. <br>If you make a mistake use the provided "Backspace" button to clear your last response. <br><br></div>'
           pageFour = '<div class="responsive-text">Remember, it is important that you select the squares in the order that you saw them.<br> So if you forget one of the squares, guess the best you can for that one, and select the rest in their correct order.<br><br>Press "Next" for practice trials.<br><br></div>'
@@ -125,7 +125,7 @@
       var instructions2 = {
         type: 'instructions',
         pages: function(){
-          pageOne = '<div class="responsive-text">We will now practice SYMMETRY JUDGEMENTS.<br><br>A black and white picture will appear on the screen briefly. You do not need to respond. <br><br>Below are examples of symmetrical and asymmetrical pictures:<br> <img src="img/symm_instructions.png" style="height:auto; max-width:90%; max-height:400px"></img><br><br>Press "Next" to start the practice rounds combining the black and white image with the red squares you need to remember.</div>'
+          pageOne = '<div class="responsive-text">We will now practice adding SYMMETRY IMAGES.<br><br>A black and white picture will appear on the screen briefly. You do not need to respond. <br><br>Below are examples of the symmetrical and asymmetrical pictures you will see:<br> <img src="img/symm_instructions.png" style="height:auto; max-width:90%; max-height:400px"></img><br><br>Press "Next" to start the practice rounds combining the black and white image with the red squares you need to remember.</div>'
           return [pageOne]
         },
         allow_backward: false,
@@ -179,14 +179,14 @@
     var cog_load = {
       type: 'symmetry-judgement-task',
       size: 8, //adjusts the number of blocks in the symmetry grid
-      trial_duration:6000,
+      trial_duration:2000,
       number_darkened: [17, 18, 19], 
       stimulus: "Is this image symmetric?",
       on_finish: function(){
-        var acc = jsPsych.data.get().last(1).values()[0].accuracy;
-        if (acc==1){
-          nSymmetryAcc+=1
-        }
+        //var acc = jsPsych.data.get().last(1).values()[0].accuracy;
+        //if (acc==1){
+        //  nSymmetryAcc+=1
+        //}
       }
     }
 
@@ -241,7 +241,7 @@
       pages: function(){
         pageOne = "<div class='responsive-text'><b>You recalled <font color='blue'>"+nSquaresRecalled+" out of "+nSquares+"</font> squares in their correct order.</b><br><br>"
         if (n>nPracticeTrials){
-          pageOne+= "You made <font color='blue'>"+nSymmetryAcc+" out of "+nSquares+"</font> accurate symmetry judgement(s).<br><br>"  
+          //pageOne+= "You made <font color='blue'>"+nSymmetryAcc+" out of "+nSquares+"</font> accurate symmetry judgement(s).<br><br>"  
         }  
         if (n>nPreTrials){
           let nTest = n - nPreTrials

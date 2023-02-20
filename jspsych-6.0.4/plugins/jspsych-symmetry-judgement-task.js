@@ -168,45 +168,45 @@ if (Array.isArray(trial.button_html)) {
   }
 }
 
-var html = '<div id="jspsych-html-button-response-btngroup">';
-for (var i = 0; i < trial.choices.length; i++) {
-  var str = buttons[i].replace(/%choice%/g, trial.choices[i]);
-  html += '<div class="jspsych-html-button-response-button"  style="display: inline-block; margin:20px 30px" id="jspsych-html-button-response-button-' + i +'" data-choice="'+i+'">'+str+'</div>';
-}
-html += '</div>';
+//var html = '<div id="jspsych-html-button-response-btngroup">';
+// for (var i = 0; i < trial.choices.length; i++) {
+//   var str = buttons[i].replace(/%choice%/g, trial.choices[i]);
+//   html += '<div class="jspsych-html-button-response-button"  style="display: inline-block; margin:20px 30px" id="jspsych-html-button-response-button-' + i +'" data-choice="'+i+'">'+str+'</div>';
+// }
+// html += '</div>';
 
-display_element.innerHTML+=html
+// display_element.innerHTML+=html
 
 var start_time = Date.now();
 
 // add event listeners to buttons
-for (var i = 0; i < trial.choices.length; i++) {
-  display_element.querySelector('#jspsych-html-button-response-button-' + i).addEventListener('click', function(e){
-    var choice = e.currentTarget.getAttribute('data-choice'); // don't use dataset for jsdom compatibility
-    after_response(choice);
-  });
-}
+//for (var i = 0; i < trial.choices.length; i++) {
+//  display_element.querySelector('#jspsych-html-button-response-button-' + i).addEventListener('click', function(e){
+//    var choice = e.currentTarget.getAttribute('data-choice'); // don't use dataset for jsdom compatibility
+//    after_response(choice);
+//  });
+//}
 
 // store response
-var response = {
-  rt: null,
-  button: null
-};
+// var response = {
+//   rt: null,
+//   button: null
+// };
 
 function after_response(choice) {
-var accuracy= 0
-var correctR = "" + pSymmetric
-  if (correctR == choice){
-    accuracy = 1
-  }
+//var accuracy= 0
+//var correctR = "" + pSymmetric
+//  if (correctR == choice){
+//    accuracy = 1
+//  }
 //  console.log(pSymmetric, choice, accuracy)
 
   // measure rt
-  var end_time = Date.now();
-  var rt = end_time - start_time;
-  var choiceRecord = choice;
-  response.correct = accuracy;
-  response.rt = rt;
+  // var end_time = Date.now();
+  // var rt = end_time - start_time;
+  // var choiceRecord = choice;
+  // response.correct = accuracy;
+  // response.rt = rt;
 
   // after a valid response, the stimulus will have the CSS class 'responded'
   // which can be used to provide visual feedback that a response was recorded
@@ -243,8 +243,8 @@ function end_trial() {
 
   // gather the data to store for the trial
   var trial_data = {
-    rt: response.rt,
-    accuracy: response.correct
+  //  rt: response.rt,
+  //  accuracy: response.correct
   };
 
   // move on to the next trial
