@@ -15,12 +15,6 @@ jsPsych.plugins["spatial-distractor"] = (function() {
     name: 'spatial-distractor',
     description: '',
     parameters: {
-      stimulus: {
-        type: jsPsych.plugins.parameterType.HTML_STRING,
-        pretty_name: 'Stimulus',
-        default: undefined,
-        description: 'The HTML string to be displayed'
-      },
       grid_size: {
         type: jsPsych.plugins.parameterType.INT, // INT, IMAGE, KEYCODE, STRING, FUNCTION, FLOAT
         default_value: 4,
