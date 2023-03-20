@@ -12,6 +12,7 @@ var requiredResources = [
     task_github + "jspsych-6.0.4/plugins/jspsych-html-keyboard-response.js",
     task_github + "jspsych-6.0.4/plugins/jspsych-html-button-response.js",
     task_github + "jspsych-6.0.4/plugins/jspsych-symmetry-judgement-task-qualtrics.js",
+    task_github + "jspsych-6.0.4/plugins/jspsych-spatial-distractor.js",
     task_github + "jspsych-6.0.4/plugins/jspsych-survey-text.js",
     task_github + "jspsych-6.0.4/plugins/jspsych-instructions.js",
     task_github + "jspsych-6.0.4/plugins/jspsych-fullscreen.js",
