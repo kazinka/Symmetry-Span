@@ -4,7 +4,7 @@
     <script src="jspsych-6.0.4/jspsych.js"></script>
     <script src="jspsych-6.0.4/plugins/jspsych-html-keyboard-response.js"></script>
     <script src="jspsych-6.0.4/plugins/jspsych-html-button-response.js"></script>
-    <script src="jspsych-6.0.4/plugins/jspsych-symmetry-judgement-task.js"></script>
+    <script src="jspsych-6.0.4/plugins/jspsych-spatial-distractor.js"></script>
     <script src="jspsych-6.0.4/plugins/jspsych-survey-text.js"></script>
     <script src="jspsych-6.0.4/plugins/jspsych-instructions.js"></script>
     <script src="jspsych-6.0.4/plugins/jspsych-fullscreen.js"></script>
@@ -159,11 +159,9 @@
 
     var nProportionDemo = 0
     var cog_load_demo = {
-      type: 'symmetry-judgement-task',
-      size: 8,
+      type: 'spatial-distractor',
+      grid_size: 4,
       trial_duration: null,
-      number_darkened: [17, 18, 19],
-      stimulus: "Is this image symmetric?",
       proportion: function(){
         nProportionDemo += 1
         if (nProportionDemo == 1){
@@ -177,11 +175,9 @@
     }
 
     var cog_load = {
-      type: 'symmetry-judgement-task',
-      size: 8, //adjusts the number of blocks in the symmetry grid
-      trial_duration:2000,
-      number_darkened: [17, 18, 19], 
-      stimulus: "Is this image symmetric?",
+      type: 'spatial-distractor',
+      grid_size: 4, //adjusts the number of blocks in the symmetry grid
+      trial_duration:1000,
       on_finish: function(){
         //var acc = jsPsych.data.get().last(1).values()[0].accuracy;
         //if (acc==1){
