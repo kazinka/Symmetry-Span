@@ -45,16 +45,7 @@ jsPsych.plugins["spatial-distractor"] = (function() {
 
     // making matrix:
     var grid = trial.grid_size;
-    var nothing = " "
 
-    var matrix = [];
-    for (var i=0; i<grid; i++){
-      m1 = i;
-      for (var h=0; h<grid; h++){
-        m2 = h;
-        matrix.push([m1,m2])
-      }
-    };
     paper_size = grid*trial.size_cells;
 
     display_element.innerHTML = `
