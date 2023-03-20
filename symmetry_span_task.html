@@ -98,7 +98,7 @@
         var data = jsPsych.data.get().last(1).values()[0];
         if(jsPsych.pluginAPI.compareKeys(data.accuracy, '1')){
           console.log("skipped instructions")
-          n+=nPreTrials
+          n+=nPracticeTrials
         } else if (jsPsych.pluginAPI.compareKeys(data.accuracy, '0')){
           console.log("read instructions")
           jsPsych.addNodeToEndOfTimeline({ timeline: [instructions, squaresDemo]}, function() {});
