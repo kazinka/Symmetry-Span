@@ -64,6 +64,21 @@ jsPsych.plugins["spatial-span-recall"] = (function() {
 
     var divArray = []
     var ttArray = []
+    var correctArray=[]
+    var Distance = []
+
+    function indexToCoordinates(index) {
+      var x = index % gridSize;
+      var y = Math.floor(index/gridSize);
+      return [x, y];
+    }
+
+    function coordDistance(coord1,coord2) {
+      var xDist = coord1[0] - coord2[0];
+      var yDist = coord1[1] - coord2[1];
+      return Math.round(Math.sqrt(Math.pow(xDist,2) + Math.pow(yDist,2))*1000)/1000
+    }
+
     recordClick = function(data){
       var tt = data.getAttribute('id')
       var div = document.getElementById(tt);
@@ -173,9 +188,14 @@ jsPsych.plugins["spatial-span-recall"] = (function() {
       var acc = 0
       for (var i=0; i<correctGrid.length; i++){
         var id = indexOfArray(correctGrid[i], matrix)
+        correctArray.push(id)
         if (recalledGrid[i] == id){
           acc += 1
         }
+      const recalledCoord = indexToCoordinates(recalledGrid[i]);
+      const correctCoord = indexToCoordinates(id);
+      const distance = coordDistance(recalledCoord,correctCoord);
+      Distance.push(distance);
       }
       console.log(acc)
       choice = 0
@@ -200,6 +220,7 @@ jsPsych.plugins["spatial-span-recall"] = (function() {
       var choiceRecord = choice;
       response.button = choice;
       response.rt = rt;
+  
 
       // after a valid response, the stimulus will have the CSS class 'responded'
       // which can be used to provide visual feedback that a response was recorded
@@ -236,7 +257,8 @@ jsPsych.plugins["spatial-span-recall"] = (function() {
       var trial_data = {
         rt: response.rt,
         recall: recalledGrid,
-        stimuli: correctGrid,
+        stimuli: correctArray,
+        distance: Distance,
         accuracy: response.button}
 
       // move on to the next trial
