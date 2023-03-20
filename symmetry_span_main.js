@@ -72,10 +72,10 @@
       var data = jsPsych.data.get().last(1).values()[0];
       if(jsPsych.pluginAPI.compareKeys(data.accuracy, '1')){
         console.log("skipped instructions")
-        n+=nPreTrials
+        n+=nPracticeTrials
       } else if (jsPsych.pluginAPI.compareKeys(data.accuracy, '0')){
         console.log("read instructions")
-        jsPsych.addNodeToEndOfTimeline({ timeline: [instructions, squaresDemo, instructions2, fullDemo]}, function() {});
+        jsPsych.addNodeToEndOfTimeline({ timeline: [instructions, squaresDemo]}, function() {});
       }
       jsPsych.addNodeToEndOfTimeline(instructions4, function() {});
       jsPsych.addNodeToEndOfTimeline(test_procedure, function() {});
@@ -92,18 +92,14 @@
         <div 
           class="responsive-text"
         >
-            <b>INSTRUCTIONS</b>
-            <br><br><br>
-            This is the symmetry span task. 
-            <br><br>
-            This task has two parts: 
-            <br>
-            (1) Square memorization 
-            <br>
-            (2) Symmetry images
-            <br><br><br>
-        </div>
-        `
+        <b>INSTRUCTIONS</b>
+        <br><br><br>
+        This is the symmetry span task. 
+        <br><br>
+        This task involves square memorization.
+        <br><br><br>
+      </div>
+      `
         pageTwo = `
         <div 
           class="responsive-text"
@@ -239,14 +235,18 @@
       <div 
         class="responsive-text"
       >
-        We have finished with the practice trials.
-        <br><br>
-        We will now start with the main trials.
-        <br><br>
-        Press "Next" to start the trials.
-        <br><br>
-      </div>
-      `
+      We have finished with the practice trials.
+      <br><br>
+      We will now start with the main trials. 
+      <br>
+      A blank square will be cover the grid after each red square is displayed. 
+      <br>
+      After 3 to 6 squares have been presented, the recall grid will appear.
+      <br><br>
+      Press "Next" to start the trials.
+      <br><br>
+    </div>
+    `
       return [pageOne]
     },
     allow_backward: false,
@@ -257,11 +257,9 @@
 
   var nProportionDemo = 0
   var cog_load_demo = {
-    type: 'symmetry-judgement-task',
-    size: 8,
-    trial_duration: null,
-    number_darkened: [17, 18, 19],
-    stimulus: "Is this image symmetric?",
+    type: 'spatial-distractor',
+    grid_size: 4,
+    trial_duration: 1000,
     proportion: function(){
       nProportionDemo += 1
       if (nProportionDemo == 1){
@@ -275,11 +273,9 @@
   }
 
   var cog_load = {
-    type: 'symmetry-judgement-task',
-    size: 8, //adjusts the number of blocks in the symmetry grid
-    trial_duration:2000,
-    number_darkened: [17, 18, 19], 
-    stimulus: "Is this image symmetric?",
+    type: 'spatial-distractor',
+    grid_size: 4, 
+    trial_duration:1000,
     on_finish: function(){
       // var acc = jsPsych.data.get().last(1).values()[0].accuracy;
       // if (acc==1){
@@ -351,18 +347,7 @@
         <br><br>
       `
       if (n>nPracticeTrials){
-        // pageOne+= `
-        //   You made 
-        //   <font color='blue'>
-        //       ${nSymmetryAcc} 
-        //       out of 
-        //       ${nSquares}
-        //   </font> 
-        //   accurate symmetry judgement(s).
-        //   <br><br>
-        // `
-      if (n>nPreTrials){
-        let nTest = n - nPreTrials
+        let nTest = n - nPracticeTrials
         pageOne+= `
           Completed 
           ${nTest} 
@@ -372,7 +357,7 @@
           </div>
         `
       }
-      }
+
       return [pageOne]
     },
     allow_backward: false,
