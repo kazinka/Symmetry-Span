@@ -74,10 +74,6 @@
     var setSizes = squaregridDemoArray.concat(fullDemoArray, setSizes)
     var totalTrials = setSizes.length //total number of trials in the entire task
     var n = 0 //keeps track of number of trials gone by
-
-    var selection = jsPsych.randomization.sampleWithoutReplacement(matrix, setSizes[n])
-    var selection_id = -1  //keeps track of recall items within a test stack
-
     var nSymmetryAcc = 0 //feedback
     var nSquaresRecalled = 0 //feedback
 
@@ -99,9 +95,17 @@
         if(jsPsych.pluginAPI.compareKeys(data.accuracy, '1')){
           console.log("skipped instructions")
           n+=nPracticeTrials
+
+          var selection = jsPsych.randomization.sampleWithoutReplacement(matrix, setSizes[n])
+          var selection_id = -1  //keeps track of recall items within a test stack
         } else if (jsPsych.pluginAPI.compareKeys(data.accuracy, '0')){
           console.log("read instructions")
           jsPsych.addNodeToEndOfTimeline({ timeline: [instructions, squaresDemo]}, function() {});
+          var setSizes = squaregridDemoArray.concat(fullDemoArray, setSizes)
+          var totalTrials = setSizes.length //total number of trials in the entire task
+      
+          var selection = jsPsych.randomization.sampleWithoutReplacement(matrix, setSizes[n])
+          var selection_id = -1  //keeps track of recall items within a test stack
         }
         jsPsych.addNodeToEndOfTimeline(instructions4, function() {});
         jsPsych.addNodeToEndOfTimeline(test_procedure, function() {});
