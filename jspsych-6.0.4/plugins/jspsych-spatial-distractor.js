@@ -44,7 +44,7 @@ jsPsych.plugins["spatial-distractor"] = (function() {
 
     display_element.innerHTML = `
       <div 
-        class="jspsych-btn-grid"
+        class="jspsych-btn-cover"
         style= "position: relative; width:${paper_size}px; height:${paper_size}px; "
       />
     `;
