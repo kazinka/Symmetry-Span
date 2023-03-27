@@ -72,9 +72,11 @@
       var data = jsPsych.data.get().last(1).values()[0];
       if(jsPsych.pluginAPI.compareKeys(data.accuracy, '1')){
         console.log("skipped instructions")
-        n+=nPracticeTrials
+        n+=nPreTrials
+        selection = jsPsych.randomization.sampleWithoutReplacement(matrix, setSizes[n])
       } else if (jsPsych.pluginAPI.compareKeys(data.accuracy, '0')){
         console.log("read instructions")
+        n+=nPracticeTrials
         jsPsych.addNodeToEndOfTimeline({ timeline: [instructions, squaresDemo]}, function() {});
       }
       jsPsych.addNodeToEndOfTimeline(instructions4, function() {});
@@ -346,8 +348,8 @@
         </b>
         <br><br>
       `
-      if (n>nPracticeTrials){
-        let nTest = n - nPracticeTrials
+      if (n>nPreTrials){
+        let nTest = n - nPreTrials
         pageOne+= `
           Completed 
           ${nTest} 
