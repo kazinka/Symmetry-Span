@@ -110,7 +110,7 @@
             <br><br>
             You will see a grid of squares on the screen.
             <br>
-            Several squares will turn red one at a time (around 3 to 6 in a trial).
+            Several squares will turn red one at a time (around 3 to 5 in a trial).
             <br>
             Try to remember which squares turned red and the order in which they turned red.
             <br><br>
@@ -215,7 +215,7 @@
         <br><br>
         Therefore, colored square presentations and symmetry judgements will alternate.
         <br>
-        After 3 to 6 squares have been presented, the recall grid will appear.
+        After 3 to 5 squares have been presented, the recall grid will appear.
         <br>
         Use the mouse to select the presented squares in their correct order.
         <br><br>
@@ -243,7 +243,7 @@
       <br>
       A blank square will cover the grid after each red square is displayed. 
       <br>
-      After 3 to 6 squares have been presented, the recall grid will appear.
+      After 3 to 5 squares have been presented, the recall grid will appear.
       <br><br>
       Press "Next" to start the trials.
       <br><br>
