@@ -241,7 +241,7 @@
       <br><br>
       We will now start with the main trials. 
       <br>
-      A blank square will be cover the grid after each red square is displayed. 
+      A blank square will cover the grid after each red square is displayed. 
       <br>
       After 3 to 6 squares have been presented, the recall grid will appear.
       <br><br>
