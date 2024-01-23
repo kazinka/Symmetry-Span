@@ -61,12 +61,14 @@ jsPsych.plugins["trails"] = (function() {
     // check and record responses:
     var divArray = []
     var ttArray = []
+    var timeRT = []
     //var mistakes = []
     var missBoxValue = []
     var missExpectedValue = []
     var missGridIndex = []
     var missExpectedGridIndex = []
     var missDistance = []
+    var missTimeRT = []
 
     function indexToCoordinates(index) {
       var x = index % gridSize;
@@ -87,15 +89,18 @@ jsPsych.plugins["trails"] = (function() {
       const gridCoord = indexToCoordinates(gridIndex);
       const expectedGridCoord = indexToCoordinates(expectedGridIndex);
       const distance = coordDistance(gridCoord,expectedGridCoord);
-      
+      const clickTime =  Date.now() - startTime;
+
       if (expectedValue === boxValue) {
         nResponse += 1
         var tt = `#${div.getAttribute('id')}`
         display_element.querySelector(tt).className += '-responded';
         selectedGrid.push(boxValue);
         console.log(selectedGrid)
+        
         ttArray.push(tt)
         divArray.push(div)
+        timeRT.push(clickTime)
         document.getElementById("message-box").innerText=''
         if (nResponse === trial.correct_order.length) {
           console.log('Last Box!')
@@ -113,11 +118,13 @@ jsPsych.plugins["trails"] = (function() {
         //   distance,
         // })
 
-          missBoxValue.push(boxValue)
-          missExpectedValue.push(expectedValue)
-          missGridIndex.push(gridIndex)
-          missExpectedGridIndex.push(expectedGridIndex)
-          missDistance.push(distance)
+        missBoxValue.push(boxValue)
+        missExpectedValue.push(expectedValue)
+        missGridIndex.push(gridIndex)
+        missExpectedGridIndex.push(expectedGridIndex)
+        missDistance.push(distance)
+        missTimeRT.push(clickTime)
+      
         //send message that they have made a mistake and what number they were on
         const preamble = 'Wrong choice,';
         const suggestion = nResponse === 0 ?
@@ -218,11 +225,13 @@ jsPsych.plugins["trails"] = (function() {
       var trial_data = {
         rt,
         randomOrder: trial.random_order,
+        timeRT,
         missBoxValue,
         missExpectedValue,
         missGridIndex,
         missExpectedGridIndex,
         missDistance,
+        missTimeRT,
         gridSize: trial.grid_size,
         trailsType: trial.trails_type
       }
