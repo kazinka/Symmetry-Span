@@ -66,6 +66,7 @@ jsPsych.plugins["spatial-span-recall"] = (function() {
     var ttArray = []
     var correctArray=[]
     var Distance = []
+    var timeRT = []
 
     function indexToCoordinates(index) {
       var x = index % gridSize;
@@ -90,6 +91,8 @@ jsPsych.plugins["spatial-span-recall"] = (function() {
       console.log(recalledGrid)
       ttArray.push(tt)
       divArray.push(div)
+      const clickTime = Date.now() - start_time;
+      timeRT.push(clickTime);
     }
 
     clearSpace = function(){
@@ -103,6 +106,7 @@ jsPsych.plugins["spatial-span-recall"] = (function() {
       display_element.querySelector(tt).className ="jspsych-btn-grid"
       divArray = divArray.slice(0, (divArray.length-1))
       ttArray = ttArray.slice(0, (ttArray.length-1))
+      timeRT = timeRT.slice(0, (timeRT.length-1))
       }
       // for (i=0; i<matrix.length; i++){
       //  var id = "jspsych-spatial-span-grid-button-"+i
@@ -198,6 +202,8 @@ jsPsych.plugins["spatial-span-recall"] = (function() {
       Distance.push(distance);
       }
       console.log(acc)
+      console.log(timeRT)
+      console.log(Distance)
       choice = 0
       console.log(indexOfArray(correctGrid[1], matrix), recalledGrid[1])
       after_response(acc);
@@ -259,6 +265,7 @@ jsPsych.plugins["spatial-span-recall"] = (function() {
         recall: recalledGrid,
         stimuli: correctArray,
         distance: Distance,
+        timeRT,
         accuracy: response.button}
 
       // move on to the next trial
